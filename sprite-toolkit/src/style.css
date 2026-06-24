@@ -1,0 +1,106 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #f8f9fa;
+  color: #1a1a2e;
+  min-height: 100vh;
+}
+
+.app-header {
+  background: #fff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 0 24px;
+}
+
+.app-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a2e;
+  padding: 16px 0 0;
+}
+
+.tab-nav {
+  display: flex;
+  gap: 0;
+  margin-top: 12px;
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #64748b;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.tab-btn:hover { color: #4f46e5; }
+.tab-btn.active { color: #4f46e5; border-bottom-color: #4f46e5; font-weight: 600; }
+
+.app-body { padding: 32px 24px; max-width: 960px; margin: 0 auto; }
+
+/* 上传区 */
+.upload-zone {
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 40px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  background: #fff;
+}
+.upload-zone:hover, .upload-zone.dragover {
+  border-color: #4f46e5;
+  background: #f0f0ff;
+}
+.upload-zone input[type="file"] { display: none; }
+.upload-hint { font-size: 13px; color: #94a3b8; margin-top: 8px; }
+
+/* 控件 */
+.form-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin: 16px 0; }
+.form-label { font-size: 13px; color: #475569; min-width: 64px; }
+.form-input {
+  width: 72px; padding: 6px 10px; border: 1px solid #cbd5e1;
+  border-radius: 6px; font-size: 14px; text-align: center;
+}
+.form-input:focus { outline: 2px solid #4f46e5; border-color: transparent; }
+
+.preset-btn {
+  padding: 6px 14px; border: 1px solid #cbd5e1; border-radius: 6px;
+  background: #fff; cursor: pointer; font-size: 13px; color: #475569;
+  transition: all 0.15s;
+}
+.preset-btn:hover, .preset-btn.active {
+  border-color: #4f46e5; color: #4f46e5; background: #f0f0ff;
+}
+
+.btn-primary {
+  padding: 10px 24px; background: #4f46e5; color: #fff;
+  border: none; border-radius: 8px; cursor: pointer; font-size: 14px;
+  font-weight: 600; transition: background 0.15s;
+}
+.btn-primary:hover { background: #4338ca; }
+.btn-primary:disabled { background: #a5b4fc; cursor: not-allowed; }
+
+.error-msg { color: #ef4444; font-size: 13px; margin-top: 8px; }
+.info-msg { color: #64748b; font-size: 13px; margin-top: 8px; }
+
+/* 预览 canvas */
+.preview-wrap {
+  margin-top: 20px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  overflow: auto;
+}
+.preview-wrap canvas { display: block; max-width: 100%; }
+.preview-label { font-size: 12px; color: #94a3b8; margin-bottom: 8px; }
+
+.meta-badge {
+  display: inline-block; font-size: 11px; background: #e0e7ff;
+  color: #4f46e5; padding: 2px 8px; border-radius: 4px; margin-left: 6px;
+}
