@@ -36,7 +36,7 @@ export function fileToImage(file) {
     const url = URL.createObjectURL(file)
     const img = new Image()
     img.onload = () => { URL.revokeObjectURL(url); resolve(img) }
-    img.onerror = reject
+    img.onerror = (e) => { URL.revokeObjectURL(url); reject(e) }
     img.src = url
   })
 }

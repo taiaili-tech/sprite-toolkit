@@ -38,6 +38,11 @@ export async function decodeGif(buffer) {
 
   const result = []
   for (const frame of frames) {
+    let restoreState = null
+    if (frame.disposalType === 3) {
+      restoreState = ctx.getImageData(0, 0, width, height)
+    }
+
     const imageData = ctx.createImageData(frame.dims.width, frame.dims.height)
     imageData.data.set(frame.patch)
 
@@ -48,6 +53,13 @@ export async function decodeGif(buffer) {
       imageData: fullImageData,
       delay: frame.delay || 100,
     })
+
+    const disposal = frame.disposalType ?? 1
+    if (disposal === 2) {
+      ctx.clearRect(0, 0, width, height)
+    } else if (disposal === 3 && restoreState) {
+      ctx.putImageData(restoreState, 0, 0)
+    }
   }
 
   return { frames: result, width, height, loopCount }
