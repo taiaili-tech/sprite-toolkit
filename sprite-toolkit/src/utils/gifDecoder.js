@@ -46,7 +46,13 @@ export async function decodeGif(buffer) {
     const imageData = ctx.createImageData(frame.dims.width, frame.dims.height)
     imageData.data.set(frame.patch)
 
-    ctx.putImageData(imageData, frame.dims.left, frame.dims.top)
+    // Use drawImage via a temp canvas so transparent pixels don't overwrite
+    // existing canvas content (putImageData would zero-out alpha, causing corruption)
+    const tmpCanvas = document.createElement('canvas')
+    tmpCanvas.width = frame.dims.width
+    tmpCanvas.height = frame.dims.height
+    tmpCanvas.getContext('2d').putImageData(imageData, 0, 0)
+    ctx.drawImage(tmpCanvas, frame.dims.left, frame.dims.top)
 
     const fullImageData = ctx.getImageData(0, 0, width, height)
     result.push({
