@@ -6,7 +6,7 @@
     <div
       class="upload-zone"
       :class="{ dragover: isDragging }"
-      @click="$refs.fileInput.click()"
+      @click="fileInput.click()"
       @dragover.prevent="isDragging = true"
       @dragleave="isDragging = false"
       @drop.prevent="onDrop"
@@ -49,7 +49,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, nextTick } from 'vue'
+import { ref, computed, watch, nextTick, onUnmounted } from 'vue'
 import { decodeGif } from '../utils/gifDecoder.js'
 import { fileToBuffer } from '../utils/canvasCrop.js'
 import { downloadAsZip } from '../utils/zipHelper.js'
@@ -64,6 +64,10 @@ const processing = ref(false)
 const decoded = ref(null)
 const maxCols = ref(8)
 let animFrameId = null
+
+onUnmounted(() => {
+  if (animFrameId) cancelAnimationFrame(animFrameId)
+})
 
 const actualCols = computed(() => {
   if (!decoded.value) return 0

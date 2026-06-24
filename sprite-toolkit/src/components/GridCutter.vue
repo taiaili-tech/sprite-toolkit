@@ -7,7 +7,7 @@
     <div
       class="upload-zone"
       :class="{ dragover: isDragging }"
-      @click="$refs.fileInput.click()"
+      @click="fileInput.click()"
       @dragover.prevent="isDragging = true"
       @dragleave="isDragging = false"
       @drop.prevent="onDrop"
