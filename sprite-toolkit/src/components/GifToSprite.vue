@@ -3,6 +3,30 @@
   <div>
     <h2 style="font-size:20px;font-weight:700;margin-bottom:16px;">GIF → 精灵图</h2>
 
+    <!-- 模式切换 -->
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+      <span class="form-label" style="margin:0;">导出模式</span>
+      <button
+        class="mode-btn"
+        :class="{ active: mode === 'sample' }"
+        @click="mode = 'sample'"
+        title="从全部帧中均匀采样，始终输出1张精灵图"
+      >均匀采样</button>
+      <button
+        class="mode-btn"
+        :class="{ active: mode === 'full' }"
+        @click="mode = 'full'"
+        title="保留全部帧，按布局顺序排入精灵图（帧数多时会生成多张）"
+      >全帧顺序</button>
+      <span v-if="currentDecoded && mode === 'sample'" style="font-size:12px;color:#6366f1;font-weight:600;">
+        → {{ totalFrames }} 帧 ÷ {{ cellCount }} 格 ≈ 每 <strong>{{ sampleInterval }}</strong> 帧取 1 帧，输出 1 张
+      </span>
+      <span v-if="currentDecoded && mode === 'full'" style="font-size:12px;color:#6366f1;font-weight:600;">
+        → {{ totalFrames }} 帧 ÷ {{ cellCount }} = 输出 <strong>{{ sheetCount }}</strong> 张
+        <template v-if="lastSheetFrames < cellCount">（最后一张 {{ lastSheetFrames }} 帧）</template>
+      </span>
+    </div>
+
     <!-- 布局设置（始终显示） -->
     <div style="margin-bottom:16px;">
       <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:8px;">
@@ -25,12 +49,7 @@
           <span class="form-label tip" title="精灵图纵向放几帧">行数</span>
           <input class="form-input" type="number" v-model.number="gridRows" min="1" max="32" style="width:60px;" />
         </div>
-        <span style="font-size:12px;color:#94a3b8;">= {{ cellCount }} 格</span>
-        <template v-if="currentDecoded">
-          <span style="font-size:12px;color:#6366f1;font-weight:600;">
-            → {{ totalFrames }} 帧 ÷ {{ cellCount }} 格 ≈ 每 <strong>{{ sampleInterval }}</strong> 帧取 1 帧
-          </span>
-        </template>
+        <span style="font-size:12px;color:#94a3b8;">= {{ cellCount }} 格/张</span>
       </div>
     </div>
 
@@ -70,8 +89,12 @@
       <div class="info-msg">
         总帧数：{{ totalFrames }} &nbsp;|&nbsp;
         帧尺寸：{{ currentDecoded.width }}×{{ currentDecoded.height }} px &nbsp;|&nbsp;
-        采样 {{ cellCount }} 帧（每 {{ sampleInterval }} 帧取 1）&nbsp;|&nbsp;
-        精灵图：{{ spriteW }}×{{ spriteH }} px
+        <template v-if="mode === 'sample'">
+          采样 {{ cellCount }} 帧（每 {{ sampleInterval }} 帧取 1）&nbsp;|&nbsp; 输出 1 张精灵图
+        </template>
+        <template v-else>
+          全部 {{ totalFrames }} 帧 → {{ sheetCount }} 张精灵图
+        </template>
       </div>
 
       <!-- 预览 -->
@@ -81,7 +104,18 @@
           <canvas ref="gifPreview"></canvas>
         </div>
         <div class="preview-wrap" style="flex:2;min-width:280px;">
-          <div class="preview-label">精灵图预览（{{ gridCols }}×{{ gridRows }}，共 {{ cellCount }} 帧）</div>
+          <div class="preview-label" style="display:flex;align-items:center;gap:8px;">
+            <span>精灵图预览（{{ gridCols }}×{{ gridRows }}）</span>
+            <template v-if="mode === 'full' && sheetCount > 1">
+              <div style="display:flex;align-items:center;gap:4px;margin-left:auto;">
+                <button class="page-btn" :disabled="previewSheet <= 0" @click="previewSheet--">‹</button>
+                <span style="font-size:12px;color:#64748b;white-space:nowrap;">
+                  第 {{ previewSheet + 1 }} / {{ sheetCount }} 张
+                </span>
+                <button class="page-btn" :disabled="previewSheet >= sheetCount - 1" @click="previewSheet++">›</button>
+              </div>
+            </template>
+          </div>
           <canvas ref="spritePreview"></canvas>
         </div>
       </div>
@@ -91,8 +125,10 @@
         <button class="btn-primary" :disabled="processing" @click="doExport">
           {{ processing ? '生成中…'
             : fileList.length > 1
-              ? `批量下载 ${fileList.length} 个精灵图 (ZIP)`
-              : '下载精灵图 + metadata.json (ZIP)' }}
+              ? `批量下载 (ZIP)`
+              : mode === 'full' && sheetCount > 1
+                ? `下载 ${sheetCount} 张精灵图 (ZIP)`
+                : '下载精灵图 + metadata.json (ZIP)' }}
         </button>
         <span v-if="processing" style="font-size:13px;color:#64748b;">{{ progressText }}</span>
       </div>
@@ -118,6 +154,8 @@ const processing = ref(false)
 const progressText = ref('')
 const gridCols = ref(3)
 const gridRows = ref(3)
+const mode = ref('sample') // 'sample' | 'full'
+const previewSheet = ref(0)
 
 let animFrameId = null
 
@@ -141,6 +179,16 @@ const cellCount = computed(() => gridCols.value * gridRows.value)
 const sampleInterval = computed(() => {
   if (!totalFrames.value) return 1
   return Math.max(1, +(totalFrames.value / cellCount.value).toFixed(1))
+})
+
+// 全帧模式：多少张精灵图
+const sheetCount = computed(() => {
+  if (!totalFrames.value) return 1
+  return Math.ceil(totalFrames.value / cellCount.value)
+})
+const lastSheetFrames = computed(() => {
+  const rem = totalFrames.value % cellCount.value
+  return rem === 0 ? cellCount.value : rem
 })
 
 // 采样后的帧索引列表
@@ -188,10 +236,12 @@ function removeFile(idx) {
 
 // ── preview ───────────────────────────────────────────────────────────────────
 
-watch([currentIdx, gridCols, gridRows], () => {
+watch([currentIdx, gridCols, gridRows, mode], () => {
+  previewSheet.value = 0
   if (animFrameId) { cancelAnimationFrame(animFrameId); animFrameId = null }
   nextTick(() => { startGifPreview(); drawSpritePreview() })
 })
+watch(previewSheet, () => nextTick(() => drawSpritePreview()))
 
 function startGifPreview() {
   if (animFrameId) { cancelAnimationFrame(animFrameId); animFrameId = null }
@@ -225,7 +275,15 @@ function drawSpritePreview() {
   const ctx = canvas.getContext('2d')
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-  const indices = getSampledIndices(frames.length, cellCount.value)
+  let indices
+  if (mode.value === 'sample') {
+    indices = getSampledIndices(frames.length, cellCount.value)
+  } else {
+    const start = previewSheet.value * cellCount.value
+    const end = Math.min(start + cellCount.value, frames.length)
+    indices = Array.from({ length: end - start }, (_, i) => start + i)
+  }
+
   indices.forEach((fi, i) => {
     const col = i % c
     const row = Math.floor(i / c)
@@ -248,33 +306,64 @@ async function buildSprite(decoded, baseName) {
   const { frames, width, height, loopCount } = decoded
   const c = gridCols.value
   const r = gridRows.value
-  const indices = getSampledIndices(frames.length, cellCount.value)
+  const entries = []
 
-  const canvas = document.createElement('canvas')
-  canvas.width = width * c; canvas.height = height * r
-  const ctx = canvas.getContext('2d')
-  indices.forEach((fi, i) => {
-    ctx.putImageData(frames[fi].imageData, (i % c) * width, Math.floor(i / c) * height)
-  })
-
-  const pngBlob = await new Promise(res => canvas.toBlob(res, 'image/png'))
-  const meta = {
-    frameCount: indices.length,
-    frameWidth: width,
-    frameHeight: height,
-    cols: c,
-    rows: r,
-    sampledFrom: frames.length,
-    sampleInterval: +(frames.length / indices.length).toFixed(2),
-    sampledIndices: indices,
-    delays: indices.map(fi => frames[fi].delay),
-    loopCount: loopCount ?? 0,
+  if (mode.value === 'sample') {
+    const indices = getSampledIndices(frames.length, cellCount.value)
+    const canvas = document.createElement('canvas')
+    canvas.width = width * c; canvas.height = height * r
+    const ctx = canvas.getContext('2d')
+    indices.forEach((fi, i) => {
+      ctx.putImageData(frames[fi].imageData, (i % c) * width, Math.floor(i / c) * height)
+    })
+    const pngBlob = await new Promise(res => canvas.toBlob(res, 'image/png'))
+    const meta = {
+      mode: 'sample',
+      frameCount: indices.length,
+      frameWidth: width, frameHeight: height,
+      cols: c, rows: r,
+      sampledFrom: frames.length,
+      sampleInterval: +(frames.length / indices.length).toFixed(2),
+      sampledIndices: indices,
+      delays: indices.map(fi => frames[fi].delay),
+      loopCount: loopCount ?? 0,
+    }
+    entries.push({ name: `${baseName}.png`, blob: pngBlob })
+    entries.push({ name: `${baseName}_metadata.json`, blob: new Blob([JSON.stringify(meta, null, 2)], { type: 'application/json' }) })
+  } else {
+    // 全帧模式：按 cellCount 分批生成多张精灵图
+    const total = frames.length
+    const count = Math.ceil(total / cellCount.value)
+    const allDelays = []
+    for (let s = 0; s < count; s++) {
+      const start = s * cellCount.value
+      const end = Math.min(start + cellCount.value, total)
+      const canvas = document.createElement('canvas')
+      canvas.width = width * c; canvas.height = height * r
+      const ctx = canvas.getContext('2d')
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      for (let i = start; i < end; i++) {
+        const slot = i - start
+        ctx.putImageData(frames[i].imageData, (slot % c) * width, Math.floor(slot / c) * height)
+        allDelays.push(frames[i].delay)
+      }
+      const pngBlob = await new Promise(res => canvas.toBlob(res, 'image/png'))
+      const suffix = count > 1 ? `_${String(s + 1).padStart(2, '0')}` : ''
+      entries.push({ name: `${baseName}${suffix}.png`, blob: pngBlob })
+    }
+    const meta = {
+      mode: 'full',
+      frameCount: total,
+      frameWidth: width, frameHeight: height,
+      cols: c, rows: r,
+      sheetCount: count,
+      delays: allDelays,
+      loopCount: loopCount ?? 0,
+    }
+    entries.push({ name: `${baseName}_metadata.json`, blob: new Blob([JSON.stringify(meta, null, 2)], { type: 'application/json' }) })
   }
-  const metaBlob = new Blob([JSON.stringify(meta, null, 2)], { type: 'application/json' })
-  return [
-    { name: `${baseName}.png`, blob: pngBlob },
-    { name: `${baseName}_metadata.json`, blob: metaBlob },
-  ]
+
+  return entries
 }
 
 async function doExport() {
@@ -319,4 +408,24 @@ async function doExport() {
 }
 .tag-btn.active { border-color: #6366f1; background: #eef2ff; color: #4338ca; font-weight: 600; }
 .tip { cursor: help; text-decoration: underline dotted #94a3b8; text-underline-offset: 2px; }
+.mode-btn {
+  padding: 5px 14px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.mode-btn.active { border-color: #6366f1; background: #eef2ff; color: #4338ca; font-weight: 600; }
+.page-btn {
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  font-size: 14px;
+  cursor: pointer;
+  line-height: 1.4;
+}
+.page-btn:disabled { opacity: 0.35; cursor: default; }
 </style>
