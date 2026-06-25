@@ -47,17 +47,19 @@
             v-for="p in gridPresets"
             :key="p.label"
             class="preset-btn"
-            :class="{ active: item.rows === p.rows && item.cols === p.cols }"
-            @click.stop="setPreset(item, p.rows, p.cols)"
+            :class="{ active: fileList[idx].pendingRows === p.rows && fileList[idx].pendingCols === p.cols }"
+            @click.stop="setPending(idx, p.rows, p.cols)"
           >{{ p.label }}</button>
         </div>
-        <div style="display:flex;align-items:center;gap:8px;line-height:32px;">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;line-height:32px;">
           <span class="form-label" style="min-width:auto;">行 × 列</span>
-          <input class="form-input" type="number" v-model.number="item.rows" min="1" max="20" style="width:60px;" @click.stop @input="redraw(idx)" />
+          <input class="form-input" type="number" v-model.number="fileList[idx].pendingRows" min="1" max="20" style="width:60px;" @click.stop />
           <span style="color:#94a3b8;">×</span>
-          <input class="form-input" type="number" v-model.number="item.cols" min="1" max="20" style="width:60px;" @click.stop @input="redraw(idx)" />
+          <input class="form-input" type="number" v-model.number="fileList[idx].pendingCols" min="1" max="20" style="width:60px;" @click.stop />
+          <button class="confirm-btn" @click.stop="confirmSettings(idx)">✓ 确认</button>
           <span style="font-size:12px;color:#94a3b8;">
-            每格 {{ Math.floor(item.imgEl.naturalWidth / item.cols) }}×{{ Math.floor(item.imgEl.naturalHeight / item.rows) }} px
+            已应用：{{ fileList[idx].rows }}×{{ fileList[idx].cols }}
+            &nbsp;每格 {{ Math.floor(item.imgEl.naturalWidth / fileList[idx].cols) }}×{{ Math.floor(item.imgEl.naturalHeight / fileList[idx].rows) }} px
           </span>
         </div>
 
@@ -81,7 +83,7 @@
         v-if="fileList.length > 1"
         class="btn-secondary"
         @click="applyToAll"
-        title="将当前选中图片的行列设置应用到所有图片"
+        title="将当前选中图片的已确认行列应用到所有图片"
       >
         同步当前设置到全部
       </button>
@@ -113,13 +115,14 @@ const gridPresets = [
   { label: '2×1', rows: 2, cols: 1 },
 ]
 
-function setPreset(item, r, c) {
-  item.rows = r; item.cols = c
-  const idx = fileList.value.indexOf(item)
-  nextTick(() => drawPreview(idx))
+function setPending(idx, r, c) {
+  fileList.value[idx].pendingRows = r
+  fileList.value[idx].pendingCols = c
 }
 
-function redraw(idx) {
+function confirmSettings(idx) {
+  fileList.value[idx].rows = fileList.value[idx].pendingRows
+  fileList.value[idx].cols = fileList.value[idx].pendingCols
   nextTick(() => drawPreview(idx))
 }
 
@@ -129,7 +132,7 @@ async function loadFiles(files) {
   for (const f of arr) {
     try {
       const imgEl = await fileToImage(f)
-      fileList.value.push({ name: f.name, imgEl, rows: 3, cols: 3 })
+      fileList.value.push({ name: f.name, imgEl, rows: 3, cols: 3, pendingRows: 3, pendingCols: 3 })
     } catch (e) {
       error.value = `${f.name} 加载失败：${e.message}`
     }
@@ -175,6 +178,8 @@ function applyToAll() {
   fileList.value.forEach((item, i) => {
     item.rows = cur.rows
     item.cols = cur.cols
+    item.pendingRows = cur.rows
+    item.pendingCols = cur.cols
     nextTick(() => drawPreview(i))
   })
 }
@@ -241,4 +246,11 @@ async function doProcess() {
   cursor: pointer; transition: all .15s;
 }
 .btn-secondary:hover { background: #eef2ff; }
+.confirm-btn {
+  padding: 4px 12px; border-radius: 6px;
+  border: 1px solid #6366f1; background: #eef2ff;
+  color: #4338ca; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all .15s;
+}
+.confirm-btn:hover { background: #6366f1; color: #fff; }
 </style>
