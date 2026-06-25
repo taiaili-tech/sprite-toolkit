@@ -10,14 +10,14 @@
         class="mode-btn"
         :class="{ active: mode === 'sample' }"
         @click="mode = 'sample'"
-        title="从全部帧中均匀采样，始终输出1张精灵图"
-      >均匀采样</button>
+        title="从 GIF 全部帧中均匀抽取，只输出 1 张精灵图&#10;适合：做封面缩略图、快速预览动画内容"
+      >抽帧导出 <span class="mode-tag">1张</span></button>
       <button
         class="mode-btn"
         :class="{ active: mode === 'full' }"
         @click="mode = 'full'"
-        title="保留全部帧，按布局顺序排入精灵图（帧数多时会生成多张）"
-      >全帧顺序</button>
+        title="保留 GIF 的全部帧，按顺序铺入精灵图&#10;帧数多时自动生成多张，适合还原动画或游戏素材"
+      >全帧导出 <span class="mode-tag">多张</span></button>
       <span v-if="currentDecoded && mode === 'sample'" style="font-size:12px;color:#6366f1;font-weight:600;">
         → {{ totalFrames }} 帧 ÷ {{ cellCount }} 格 ≈ 每 <strong>{{ sampleInterval }}</strong> 帧取 1 帧，输出 1 张
       </span>
@@ -418,6 +418,18 @@ async function doExport() {
   transition: all .15s;
 }
 .mode-btn.active { border-color: #6366f1; background: #eef2ff; color: #4338ca; font-weight: 600; }
+.mode-tag {
+  display: inline-block;
+  font-size: 10px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: #e2e8f0;
+  color: #64748b;
+  margin-left: 3px;
+  font-weight: 400;
+  vertical-align: middle;
+}
+.mode-btn.active .mode-tag { background: #c7d2fe; color: #4338ca; }
 .page-btn {
   padding: 2px 8px;
   border-radius: 4px;
