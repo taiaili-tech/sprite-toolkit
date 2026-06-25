@@ -88,7 +88,7 @@
 
       <div style="margin-top:16px;display:flex;gap:10px;align-items:center;">
         <button class="btn-primary" :disabled="processing" @click="doCompress">
-          {{ processing ? `压缩中… ${progressText}` : `开始压缩并下载 (${items.length} 张)` }}
+          {{ processing ? `压缩中… ${progressText}` : items.length === 1 ? '开始压缩并下载' : `开始压缩并下载 ZIP (${items.length} 张)` }}
         </button>
       </div>
     </div>
@@ -174,7 +174,7 @@ async function doCompress() {
   if (!items.value.length) return
   processing.value = true; error.value = ''
   try {
-    const zipEntries = []
+    const results = []
     for (let i = 0; i < items.value.length; i++) {
       const item = items.value[i]
       item.status = 'processing'
@@ -195,9 +195,15 @@ async function doCompress() {
       item.ratio = Math.round((item.originalSize - blob.size) / item.originalSize * 100)
       item.status = useOriginal ? 'skip' : 'done'
       const baseName = item.name.replace(/\.[^.]+$/, '')
-      zipEntries.push({ name: `${baseName}.${outFmt.value}`, blob: finalBlob })
+      results.push({ name: `${baseName}.${outFmt.value}`, blob: finalBlob })
     }
-    await downloadAsZip(zipEntries, 'compressed.zip')
+    if (results.length === 1) {
+      const a = document.createElement('a')
+      a.href = URL.createObjectURL(results[0].blob)
+      a.download = results[0].name; a.click()
+    } else {
+      await downloadAsZip(results, 'compressed.zip')
+    }
   } catch (e) {
     error.value = '压缩失败：' + e.message
   } finally {

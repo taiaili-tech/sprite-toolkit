@@ -69,7 +69,7 @@
 
       <div style="margin-top:16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
         <button class="btn-primary" :disabled="processing" @click="doConvert">
-          {{ processing ? `转换中… ${progressText}` : `转换并下载 ZIP (${items.length} 张)` }}
+          {{ processing ? `转换中… ${progressText}` : items.length === 1 ? '转换并下载' : `转换并下载 ZIP (${items.length} 张)` }}
         </button>
         <button class="btn-secondary" :disabled="processing" @click="doPreview">预估大小</button>
       </div>
@@ -151,7 +151,7 @@ async function doConvert() {
   if (!items.value.length) return
   processing.value = true; error.value = ''
   try {
-    const zipEntries = []
+    const results = []
     for (let i = 0; i < items.value.length; i++) {
       const item = items.value[i]
       progressText.value = `(${i + 1}/${items.value.length})`
@@ -162,9 +162,15 @@ async function doConvert() {
       const blob = await canvasToBlob(canvas, targetFormat.value, quality.value)
       item.convertedSize = blob.size
       const baseName = item.name.replace(/\.[^.]+$/, '')
-      zipEntries.push({ name: `${baseName}.${targetFormat.value}`, blob })
+      results.push({ name: `${baseName}.${targetFormat.value}`, blob })
     }
-    await downloadAsZip(zipEntries, `converted_${targetFormat.value}.zip`)
+    if (results.length === 1) {
+      const a = document.createElement('a')
+      a.href = URL.createObjectURL(results[0].blob)
+      a.download = results[0].name; a.click()
+    } else {
+      await downloadAsZip(results, `converted_${targetFormat.value}.zip`)
+    }
   } catch (e) {
     error.value = '转换失败：' + e.message
   } finally {
