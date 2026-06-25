@@ -3,26 +3,6 @@
   <div>
     <h2 style="font-size:20px;font-weight:700;margin-bottom:20px;">宫格裁切</h2>
 
-    <!-- 配置（始终显示） -->
-    <div style="margin-bottom:16px;">
-      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:10px;">
-        <span class="form-label" style="margin:0;white-space:nowrap;">快速预设</span>
-        <button
-          v-for="p in gridPresets"
-          :key="p.label"
-          class="preset-btn"
-          :class="{ active: rows === p.rows && cols === p.cols }"
-          @click="setPreset(p.rows, p.cols)"
-        >{{ p.label }}</button>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px;line-height:32px;">
-        <span class="form-label" style="min-width:auto;">行 × 列</span>
-        <input class="form-input" type="number" v-model.number="rows" min="1" max="20" style="width:60px;" />
-        <span style="color:#94a3b8;">×</span>
-        <input class="form-input" type="number" v-model.number="cols" min="1" max="20" style="width:60px;" />
-      </div>
-    </div>
-
     <!-- 上传区 -->
     <div
       class="upload-zone"
@@ -36,68 +16,92 @@
       <div v-if="fileList.length === 0">点击或拖入图片（支持多文件批量，PNG / JPG / WebP / GIF）</div>
       <div v-else style="font-size:13px;">
         已载入 {{ fileList.length }} 张图片&nbsp;
-        <span style="color:#6366f1;cursor:pointer;text-decoration:underline;" @click.stop="fileInput.click()">重新选择</span>
+        <span style="color:#6366f1;cursor:pointer;text-decoration:underline;" @click.stop="fileInput.click()">继续添加 / 重新选择</span>
       </div>
       <div class="upload-hint">GIF 只取第一帧</div>
     </div>
 
-    <!-- 文件 tab -->
-    <div v-if="fileList.length > 1" style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;">
-      <button
-        v-for="(item, idx) in fileList"
-        :key="idx"
-        :class="['tag-btn', { active: currentIdx === idx }]"
-        @click="currentIdx = idx"
-      >
-        {{ item.name }}
-        <span style="margin-left:4px;opacity:0.6;" @click.stop="removeFile(idx)">×</span>
-      </button>
-    </div>
-
     <div v-if="error" class="error-msg">{{ error }}</div>
 
-    <!-- 预览 -->
-    <div v-if="currentItem" class="preview-wrap" style="margin-top:16px;">
-      <div class="preview-label">
-        预览（每格 {{ cellW }}×{{ cellH }} px）
-        <span v-if="fileList.length > 1" style="margin-left:8px;font-size:11px;color:#94a3b8;">
-          {{ currentIdx + 1 }}/{{ fileList.length }}
-        </span>
+    <!-- 图片列表 -->
+    <div v-if="fileList.length" style="margin-top:16px;display:flex;flex-direction:column;gap:16px;">
+      <div
+        v-for="(item, idx) in fileList"
+        :key="idx"
+        class="item-card"
+        :class="{ active: currentIdx === idx }"
+        @click="currentIdx = idx"
+      >
+        <!-- 标题栏 -->
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+          <span style="font-size:13px;font-weight:600;color:#374151;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+            {{ item.name }}
+          </span>
+          <span style="font-size:11px;color:#94a3b8;">{{ item.imgEl.naturalWidth }}×{{ item.imgEl.naturalHeight }}</span>
+          <button class="remove-btn" @click.stop="removeFile(idx)" title="移除">×</button>
+        </div>
+
+        <!-- 行列设置 -->
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:8px;">
+          <button
+            v-for="p in gridPresets"
+            :key="p.label"
+            class="preset-btn"
+            :class="{ active: item.rows === p.rows && item.cols === p.cols }"
+            @click.stop="setPreset(item, p.rows, p.cols)"
+          >{{ p.label }}</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;line-height:32px;">
+          <span class="form-label" style="min-width:auto;">行 × 列</span>
+          <input class="form-input" type="number" v-model.number="item.rows" min="1" max="20" style="width:60px;" @click.stop @input="redraw(idx)" />
+          <span style="color:#94a3b8;">×</span>
+          <input class="form-input" type="number" v-model.number="item.cols" min="1" max="20" style="width:60px;" @click.stop @input="redraw(idx)" />
+          <span style="font-size:12px;color:#94a3b8;">
+            每格 {{ Math.floor(item.imgEl.naturalWidth / item.cols) }}×{{ Math.floor(item.imgEl.naturalHeight / item.rows) }} px
+          </span>
+        </div>
+
+        <!-- 预览 -->
+        <div class="preview-wrap" style="margin-top:10px;">
+          <canvas :ref="el => { if(el) canvasRefs[idx] = el }"></canvas>
+        </div>
       </div>
-      <canvas ref="previewCanvas"></canvas>
     </div>
 
-    <div style="margin-top:20px;">
-      <button class="btn-primary" :disabled="!fileList.length || processing" @click="doProcess">
+    <!-- 批量操作 -->
+    <div v-if="fileList.length" style="margin-top:20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+      <button class="btn-primary" :disabled="processing" @click="doProcess">
         {{ processing
           ? `处理中… ${progressText}`
           : fileList.length > 1
             ? `批量裁切 ${fileList.length} 张并下载 ZIP`
             : '裁切并下载 ZIP' }}
       </button>
+      <button
+        v-if="fileList.length > 1"
+        class="btn-secondary"
+        @click="applyToAll"
+        title="将当前选中图片的行列设置应用到所有图片"
+      >
+        同步当前设置到全部
+      </button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, watch, computed, nextTick } from 'vue'
+import { ref, watch, nextTick } from 'vue'
 import { cropToBlob, fileToImage } from '../utils/canvasCrop.js'
 import { downloadAsZip } from '../utils/zipHelper.js'
 
 const fileInput = ref(null)
-const previewCanvas = ref(null)
-const fileList = ref([])   // [{ name, imgEl }]
+const fileList = ref([])   // [{ name, imgEl, rows, cols }]
+const canvasRefs = ref([])
 const currentIdx = ref(0)
 const isDragging = ref(false)
-const rows = ref(3)
-const cols = ref(3)
 const error = ref('')
 const processing = ref(false)
 const progressText = ref('')
-
-const currentItem = computed(() => fileList.value[currentIdx.value] ?? null)
-const cellW = computed(() => currentItem.value ? Math.floor(currentItem.value.imgEl.naturalWidth / cols.value) : 0)
-const cellH = computed(() => currentItem.value ? Math.floor(currentItem.value.imgEl.naturalHeight / rows.value) : 0)
 
 const gridPresets = [
   { label: '2×2', rows: 2, cols: 2 },
@@ -109,42 +113,45 @@ const gridPresets = [
   { label: '2×1', rows: 2, cols: 1 },
 ]
 
-function setPreset(r, c) { rows.value = r; cols.value = c }
+function setPreset(item, r, c) {
+  item.rows = r; item.cols = c
+  const idx = fileList.value.indexOf(item)
+  nextTick(() => drawPreview(idx))
+}
+
+function redraw(idx) {
+  nextTick(() => drawPreview(idx))
+}
 
 async function loadFiles(files) {
   error.value = ''
   const arr = Array.from(files)
-  const items = []
   for (const f of arr) {
     try {
       const imgEl = await fileToImage(f)
-      items.push({ name: f.name, imgEl })
+      fileList.value.push({ name: f.name, imgEl, rows: 3, cols: 3 })
     } catch (e) {
       error.value = `${f.name} 加载失败：${e.message}`
     }
   }
-  fileList.value = items
-  currentIdx.value = 0
   await nextTick()
-  drawPreview()
+  fileList.value.forEach((_, i) => drawPreview(i))
 }
 
-function onFileChange(e) { if (e.target.files.length) loadFiles(e.target.files) }
+function onFileChange(e) { if (e.target.files.length) loadFiles(e.target.files); e.target.value = '' }
 function onDrop(e) { isDragging.value = false; if (e.dataTransfer.files.length) loadFiles(e.dataTransfer.files) }
 function removeFile(idx) {
   fileList.value.splice(idx, 1)
+  canvasRefs.value.splice(idx, 1)
   if (currentIdx.value >= fileList.value.length) currentIdx.value = Math.max(0, fileList.value.length - 1)
-  nextTick(() => drawPreview())
 }
 
-watch([rows, cols, currentIdx], () => { if (currentItem.value) drawPreview() })
-
-function drawPreview() {
-  const canvas = previewCanvas.value
-  const item = currentItem.value
+function drawPreview(idx) {
+  const canvas = canvasRefs.value[idx]
+  const item = fileList.value[idx]
   if (!canvas || !item) return
   const img = item.imgEl
-  const MAX = 600
+  const MAX = 500
   const scale = Math.min(1, MAX / Math.max(img.naturalWidth, img.naturalHeight))
   canvas.width = img.naturalWidth * scale
   canvas.height = img.naturalHeight * scale
@@ -152,14 +159,24 @@ function drawPreview() {
   ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
   ctx.strokeStyle = 'rgba(79,70,229,0.7)'
   ctx.lineWidth = 1
-  const cw = canvas.width / cols.value
-  const ch = canvas.height / rows.value
-  for (let r = 1; r < rows.value; r++) {
+  const cw = canvas.width / item.cols
+  const ch = canvas.height / item.rows
+  for (let r = 1; r < item.rows; r++) {
     ctx.beginPath(); ctx.moveTo(0, r * ch); ctx.lineTo(canvas.width, r * ch); ctx.stroke()
   }
-  for (let c = 1; c < cols.value; c++) {
+  for (let c = 1; c < item.cols; c++) {
     ctx.beginPath(); ctx.moveTo(c * cw, 0); ctx.lineTo(c * cw, canvas.height); ctx.stroke()
   }
+}
+
+function applyToAll() {
+  const cur = fileList.value[currentIdx.value]
+  if (!cur) return
+  fileList.value.forEach((item, i) => {
+    item.rows = cur.rows
+    item.cols = cur.cols
+    nextTick(() => drawPreview(i))
+  })
 }
 
 async function doProcess() {
@@ -172,13 +189,13 @@ async function doProcess() {
       const item = fileList.value[i]
       progressText.value = `(${i + 1}/${fileList.value.length})`
       const img = item.imgEl
-      const cw = Math.floor(img.naturalWidth / cols.value)
-      const ch = Math.floor(img.naturalHeight / rows.value)
+      const cw = Math.floor(img.naturalWidth / item.cols)
+      const ch = Math.floor(img.naturalHeight / item.rows)
       const baseName = fileList.value.length > 1
         ? item.name.replace(/\.[^.]+$/, '')
         : ''
-      for (let r = 0; r < rows.value; r++) {
-        for (let c = 0; c < cols.value; c++) {
+      for (let r = 0; r < item.rows; r++) {
+        for (let c = 0; c < item.cols; c++) {
           const blob = await cropToBlob(img, c * cw, r * ch, cw, ch)
           const name = baseName
             ? `${baseName}_r${r + 1}c${c + 1}.png`
@@ -198,18 +215,30 @@ async function doProcess() {
 </script>
 
 <style scoped>
-.tag-btn {
-  padding: 4px 10px;
-  border-radius: 6px;
+.item-card {
   border: 1px solid #e2e8f0;
-  background: #f8fafc;
-  font-size: 12px;
+  border-radius: 10px;
+  padding: 14px;
+  background: #fff;
   cursor: pointer;
-  white-space: nowrap;
-  max-width: 180px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  transition: border-color .15s, box-shadow .15s;
+}
+.item-card:hover { border-color: #a5b4fc; }
+.item-card.active { border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99,102,241,0.1); }
+.remove-btn {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 1px solid #e2e8f0; background: #f8fafc;
+  font-size: 14px; cursor: pointer; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+  color: #94a3b8; flex-shrink: 0;
   transition: all .15s;
 }
-.tag-btn.active { border-color: #6366f1; background: #eef2ff; color: #4338ca; font-weight: 600; }
+.remove-btn:hover { background: #fee2e2; border-color: #fca5a5; color: #ef4444; }
+.btn-secondary {
+  padding: 8px 16px; border-radius: 8px;
+  border: 1px solid #6366f1; background: #fff;
+  color: #6366f1; font-size: 14px; font-weight: 500;
+  cursor: pointer; transition: all .15s;
+}
+.btn-secondary:hover { background: #eef2ff; }
 </style>
