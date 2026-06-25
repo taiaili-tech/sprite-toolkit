@@ -3,7 +3,7 @@
   <div>
     <h2 style="font-size:20px;font-weight:700;margin-bottom:20px;">精灵图 → GIF</h2>
 
-    <!-- 多文件上传区 -->
+    <!-- 上传区 -->
     <div
       class="upload-zone"
       :class="{ dragover: isDragging }"
@@ -12,25 +12,12 @@
       @dragleave="isDragging = false"
       @drop.prevent="onDrop"
     >
-      <input ref="fileInput" type="file" accept="image/png,image/jpeg" multiple @change="onFileChange" />
-      <div v-if="fileList.length === 0">点击或拖入精灵图 PNG / JPG（支持多文件）</div>
+      <input ref="fileInput" type="file" accept="image/png,image/jpeg" @change="onFileChange" />
+      <div v-if="!currentItem">点击或拖入精灵图 PNG / JPG</div>
       <div v-else style="font-size:13px;">
-        已载入 {{ fileList.length }} 个文件&nbsp;
+        {{ currentItem.name }}&nbsp;
         <span style="color:#6366f1;cursor:pointer;text-decoration:underline;" @click.stop="fileInput.click()">重新选择</span>
       </div>
-    </div>
-
-    <!-- 文件列表 -->
-    <div v-if="fileList.length > 1" style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;">
-      <button
-        v-for="(item, idx) in fileList"
-        :key="idx"
-        :class="['tag-btn', { active: currentIdx === idx }]"
-        @click="currentIdx = idx"
-      >
-        {{ item.name }}
-        <span style="margin-left:4px;opacity:0.6;" @click.stop="removeFile(idx)">×</span>
-      </button>
     </div>
 
     <!-- metadata.json 上传 -->
@@ -142,7 +129,7 @@
       <!-- 导出按钮 -->
       <div style="margin-top:16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
         <button class="btn-primary" :disabled="processing" @click="doExport">
-          {{ processing ? '生成中…' : fileList.length > 1 ? `批量下载 ${fileList.length} 个 GIF (ZIP)` : '下载 GIF' }}
+          {{ processing ? '生成中…' : '下载 GIF' }}
         </button>
         <span v-if="processing" style="font-size:13px;color:#64748b;">{{ progressText }}</span>
       </div>
@@ -161,7 +148,7 @@ const metaInput = ref(null)
 const previewCanvas = ref(null)
 const gridCanvas = ref(null)
 
-const fileList = ref([])   // [{ name, file, imgEl }]
+const fileList = ref([])   // [{ name, file, imgEl }] — single item
 const currentIdx = ref(0)
 const isDragging = ref(false)
 const error = ref('')
@@ -206,42 +193,22 @@ onUnmounted(() => { if (animFrameId) cancelAnimationFrame(animFrameId) })
 
 // ── file loading ─────────────────────────────────────────────────────────────
 
-async function loadFiles(files) {
+async function loadFile(f) {
   error.value = ''
   suggestions.value = []
-  const arr = Array.from(files).filter(f => f.type.startsWith('image/'))
-  if (!arr.length) return
-  const items = await Promise.all(arr.map(async f => {
-    const imgEl = await fileToImage(f).catch(() => null)
-    return { name: f.name, file: f, imgEl }
-  }))
-  fileList.value = [...fileList.value, ...items.filter(i => i.imgEl)]
-  currentIdx.value = fileList.value.length - items.length  // jump to first new
+  if (!f.type.startsWith('image/')) return
+  const imgEl = await fileToImage(f).catch(e => { error.value = '图片加载失败：' + e.message; return null })
+  if (!imgEl) return
+  fileList.value = [{ name: f.name, file: f, imgEl }]
+  currentIdx.value = 0
   await nextTick()
   autoDetect()
   drawGridPreview()
   startPreview()
 }
 
-function onFileChange(e) {
-  fileList.value = []   // reset on new selection
-  currentIdx.value = 0
-  if (e.target.files.length) loadFiles(e.target.files)
-}
-function onDrop(e) {
-  isDragging.value = false
-  if (e.dataTransfer.files.length) {
-    fileList.value = []
-    currentIdx.value = 0
-    loadFiles(e.dataTransfer.files)
-  }
-}
-
-function removeFile(idx) {
-  fileList.value.splice(idx, 1)
-  if (currentIdx.value >= fileList.value.length) currentIdx.value = Math.max(0, fileList.value.length - 1)
-  nextTick(() => startPreview())
-}
+function onFileChange(e) { if (e.target.files[0]) loadFile(e.target.files[0]) }
+function onDrop(e) { isDragging.value = false; const f = e.dataTransfer.files[0]; if (f) loadFile(f) }
 
 // ── metadata ─────────────────────────────────────────────────────────────────
 
@@ -544,26 +511,11 @@ async function doExport() {
   processing.value = true
   error.value = ''
   try {
-    if (fileList.value.length <= 1) {
-      // Single file — direct download
-      const item = currentItem.value
-      if (!item) throw new Error('请先上传精灵图')
-      const blob = await makeGifBlob(item.imgEl)
-      const baseName = item.name.replace(/\.[^.]+$/, '')
-      triggerDownload(blob, `${baseName}.gif`)
-    } else {
-      // Batch — export all as ZIP
-      const zipEntries = []
-      for (let i = 0; i < fileList.value.length; i++) {
-        const item = fileList.value[i]
-        progressText.value = `处理 ${i + 1} / ${fileList.value.length}：${item.name}`
-        const blob = await makeGifBlob(item.imgEl)
-        const baseName = item.name.replace(/\.[^.]+$/, '')
-        zipEntries.push({ name: `${baseName}.gif`, blob })
-      }
-      progressText.value = '打包中…'
-      await downloadAsZip(zipEntries, 'sprite_to_gif_batch.zip')
-    }
+    const item = currentItem.value
+    if (!item) throw new Error('请先上传精灵图')
+    const blob = await makeGifBlob(item.imgEl)
+    const baseName = item.name.replace(/\.[^.]+$/, '')
+    triggerDownload(blob, `${baseName}.gif`)
   } catch (e) {
     error.value = '导出失败：' + e.message
   } finally {
