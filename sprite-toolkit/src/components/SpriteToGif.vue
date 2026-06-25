@@ -56,26 +56,26 @@
       <!-- 第一行：参数输入（紧凑） -->
       <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-bottom:12px;">
         <div class="form-row" style="margin-bottom:0;flex:1;min-width:90px;">
-          <span class="form-label">列数</span>
+          <span class="form-label tip" title="精灵图横向有几列格子，每列对应一帧">列数 ⓘ</span>
           <input class="form-input" type="number" v-model.number="cols" min="1" max="64" />
           <span v-if="metaLoaded" class="meta-badge">meta</span>
         </div>
         <div class="form-row" style="margin-bottom:0;flex:1;min-width:90px;">
-          <span class="form-label">行数</span>
+          <span class="form-label tip" title="精灵图纵向有几行格子，每行对应一帧">行数 ⓘ</span>
           <input class="form-input" type="number" v-model.number="rows" min="1" max="64" />
           <span v-if="metaLoaded" class="meta-badge">meta</span>
         </div>
         <div class="form-row" style="margin-bottom:0;flex:1;min-width:90px;">
-          <span class="form-label">FPS</span>
+          <span class="form-label tip" title="GIF 每秒播放的帧数，数值越大动画越快。常用：10（慢）/ 24（流畅）/ 30（快）">FPS ⓘ</span>
           <input class="form-input" type="number" v-model.number="fps" min="1" max="60" />
           <span v-if="metaLoaded" class="meta-badge">meta</span>
         </div>
         <div class="form-row" style="margin-bottom:0;flex:1;min-width:90px;">
-          <span class="form-label">内边距 px</span>
+          <span class="form-label tip" title="每个格子四周的透明/空白边距（像素）。大多数精灵图没有边距，填 0 即可">内边距 px ⓘ</span>
           <input class="form-input" type="number" v-model.number="padding" min="0" />
         </div>
         <div class="form-row" style="margin-bottom:0;flex:1;min-width:90px;">
-          <span class="form-label">实际帧数</span>
+          <span class="form-label tip" title="精灵图里实际有多少帧动画。如果最后一行没填满（如 2×8=16格但只有17帧），填入真实数量，多余的空格会自动跳过">实际帧数 ⓘ</span>
           <input
             class="form-input"
             type="number"
@@ -94,8 +94,6 @@
         <div style="flex:3;min-width:220px;">
           <!-- 预设工具栏 -->
           <div class="grid-toolbar">
-            <button class="btn-detect" @click="autoDetect">✨ 自动识别</button>
-            <div class="toolbar-divider"></div>
             <button
               v-for="p in gridPresets"
               :key="p.label"
@@ -103,13 +101,11 @@
               :class="{ active: cols === p.cols && rows === p.rows }"
               @click="applyPreset(p)"
             >{{ p.label }}</button>
-            <div class="toolbar-divider"></div>
-            <button class="preset-btn" @click="autoSuggest" title="根据实际帧数推荐布局">🔍 布局建议</button>
           </div>
 
-          <!-- 自动识别结果 -->
+          <!-- 自动识别结果（上传后自动显示） -->
           <div v-if="detectResults.length" class="detect-panel">
-            <span style="font-size:11px;color:#1d4ed8;font-weight:600;">识别结果（点击应用）：</span>
+            <span style="font-size:11px;color:#1d4ed8;font-weight:600;">自动识别：</span>
             <button
               v-for="d in detectResults"
               :key="d.label"
@@ -118,17 +114,6 @@
               @click="applyDetect(d)"
               :title="`每帧 ${d.fw}×${d.fh} px，共 ${d.totalFrames} 格`"
             >{{ d.label }} <span style="font-size:10px;opacity:0.6;">{{d.fw}}×{{d.fh}}</span></button>
-          </div>
-
-          <!-- 布局建议结果 -->
-          <div v-if="suggestions.length" class="detect-panel">
-            <span style="font-size:11px;color:#64748b;font-weight:600;">布局建议（实际帧数 {{ actualFrameCount }}）：</span>
-            <button
-              v-for="s in suggestions"
-              :key="s.label"
-              class="preset-btn"
-              @click="applyPreset(s); suggestions = []"
-            >{{ s.label }}</button>
           </div>
 
           <!-- 网格叠加预览 -->
@@ -233,6 +218,7 @@ async function loadFiles(files) {
   fileList.value = [...fileList.value, ...items.filter(i => i.imgEl)]
   currentIdx.value = fileList.value.length - items.length  // jump to first new
   await nextTick()
+  autoDetect()
   drawGridPreview()
   startPreview()
 }
@@ -289,7 +275,6 @@ function applyPreset(p) {
 
 function applyDetect(d) {
   applyPreset(d)
-  detectResults.value = []
 }
 
 function getDivisors(n) {
@@ -459,7 +444,10 @@ function getFrames(imgEl) {
 
 // ── preview ───────────────────────────────────────────────────────────────────
 
-watch([() => fileList.value[currentIdx.value], cols, rows, fps, padding, actualFrameCount], () => {
+watch(() => currentIdx.value, () => {
+  if (currentItem.value?.imgEl) nextTick(() => { autoDetect(); drawGridPreview(); startPreview() })
+})
+watch([cols, rows, fps, padding, actualFrameCount], () => {
   if (currentItem.value?.imgEl) nextTick(() => { drawGridPreview(); startPreview() })
 })
 
@@ -620,6 +608,11 @@ async function doExport() {
   background: #eef2ff;
   color: #4338ca;
   font-weight: 600;
+}
+.tip {
+  cursor: help;
+  text-decoration: underline dotted #94a3b8;
+  text-underline-offset: 2px;
 }
 .btn-detect {
   padding: 4px 12px;
