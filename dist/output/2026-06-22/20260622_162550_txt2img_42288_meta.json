@@ -1,0 +1,19 @@
+{
+  "timestamp": "20260622_162550",
+  "mode": "txt2img",
+  "model": "Image-MI",
+  "images_count": 4,
+  "prompt": "千年石柱支撑的无尽哥特大教堂中殿, 彩色玻璃投射的彩虹碎光铺满地面, 神圣肃穆，时间凝固于石头之中, 哥特石雕精细，神圣光影，超写实，极度细节，8K画质，无文字，无水印 --ar 9:16 --v 7 --stylize 850 --q 2",
+  "gemini_prompt": "",
+  "extra_prompt": "",
+  "ref_paths": [],
+  "ar": "9:16",
+  "stylize": 850,
+  "version": "7",
+  "outputs": [
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_162550_txt2img_42288_1of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_162550_txt2img_42288_2of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_162550_txt2img_42288_3of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_162550_txt2img_42288_4of4_result.png"
+  ]
+}

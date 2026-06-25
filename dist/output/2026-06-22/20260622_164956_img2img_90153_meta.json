@@ -1,0 +1,23 @@
+{
+  "timestamp": "20260622_164956",
+  "mode": "img2img",
+  "model": "Image-MI",
+  "images_count": 4,
+  "prompt": "A monumental spherical flask-shaped skyscraper with a prominent tapered neck and a prominent cork-like apex, featuring a wide bulbous glass body and an organic curved silhouette, massive urban scale, cyberpunk metropolis, glowing neon acid green liquid interior, dense holographic interfaces and flickering LED signage, rain-slicked dark metallic textures, heavy industrial atmosphere, deep midnight blue and magenta neon light pollution, reflective wet asphalt streets, cinematic wide shot, volumetric fog and thick smog, hyper-realistic, intricate high-tech mechanical surface details, high contrast, moody atmospheric lighting, futuristic dystopia. --ar 9:16 --v 7 --stylize 900 --q 2",
+  "gemini_prompt": "A monumental spherical flask-shaped skyscraper with a prominent tapered neck and a prominent cork-like apex, featuring a wide bulbous glass body and an organic curved silhouette, massive urban scale, cyberpunk metropolis, glowing neon acid green liquid interior, dense holographic interfaces and flickering LED signage, rain-slicked dark metallic textures, heavy industrial atmosphere, deep midnight blue and magenta neon light pollution, reflective wet asphalt streets, cinematic wide shot, volumetric fog and thick smog, hyper-realistic, intricate high-tech mechanical surface details, high contrast, moody atmospheric lighting, futuristic dystopia.",
+  "extra_prompt": "",
+  "ref_paths": [
+    "D:/图片库/参考图/83605381-23be-4852-a610-acdb1388716b.jpg",
+    "D:/图片库/参考图/Snipaste_2026-06-11_10-48-28.png",
+    "D:/图片库/参考图/83605381-23be-4852-a610-acdb1388716b.jpg"
+  ],
+  "ar": "9:16",
+  "stylize": 900,
+  "version": "7",
+  "outputs": [
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_164956_img2img_90153_1of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_164956_img2img_90153_2of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_164956_img2img_90153_3of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_164956_img2img_90153_4of4_result.png"
+  ]
+}

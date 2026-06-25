@@ -1,0 +1,23 @@
+{
+  "timestamp": "20260622_162151",
+  "mode": "img2img",
+  "model": "Image-MI",
+  "images_count": 4,
+  "prompt": "Gothic cathedral interior, dramatic chiaroscuro lighting, ethereal moonlight filtering through intricate stained glass, haunting and mysterious atmosphere, majestic stone architecture, soaring pointed arches, intricate ribbed vaulting, elaborate stone tracery, flying buttresses supporting the heavy structure, fine stone carving details, solemn and sacred aesthetic, one solitary tiny silhouette of a pilgrim, dusty air particles dancing in beams of light, desaturated moody tones, cold marble textures, hyper-realistic, cinematic composition, silent sanctuary, solemn and imposing scale. --ar 16:9 --v 7 --stylize 850 --q 2\n教堂",
+  "gemini_prompt": "Gothic cathedral interior, dramatic chiaroscuro lighting, ethereal moonlight filtering through intricate stained glass, haunting and mysterious atmosphere, majestic stone architecture, soaring pointed arches, intricate ribbed vaulting, elaborate stone tracery, flying buttresses supporting the heavy structure, fine stone carving details, solemn and sacred aesthetic, one solitary tiny silhouette of a pilgrim, dusty air particles dancing in beams of light, desaturated moody tones, cold marble textures, hyper-realistic, cinematic composition, silent sanctuary, solemn and imposing scale.",
+  "extra_prompt": "教堂",
+  "ref_paths": [
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\pinterest\\教堂-20260622T162137\\001.jpg",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\pinterest\\教堂-20260622T162137\\004.jpg",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\pinterest\\教堂-20260622T162137\\002.jpg"
+  ],
+  "ar": "16:9",
+  "stylize": 850,
+  "version": "7",
+  "outputs": [
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_162151_img2img_06123_1of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_162151_img2img_06123_2of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_162151_img2img_06123_3of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_162151_img2img_06123_4of4_result.png"
+  ]
+}

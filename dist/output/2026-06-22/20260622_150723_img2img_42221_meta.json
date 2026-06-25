@@ -1,0 +1,23 @@
+{
+  "timestamp": "20260622_150723",
+  "mode": "img2img",
+  "model": "Image-MI",
+  "images_count": 4,
+  "prompt": "A sculptural composition of a concrete geometric cross structure, intersecting block forms with sharp edges, matte porous concrete texture, placed in a vast minimalist white void, harsh directional studio lighting, long dramatic cast shadow, profound negative space, high contrast, clean architectural lines, monochrome palette, serene atmosphere, sharp focus, hyper-realistic, 8k resolution, minimalist aesthetic, one solitary tiny silhouette standing near the base to emphasize scale, absolute stillness, contemplative mood. --ar 9:16 --v 7 --stylize 850 --q 2\n正方体",
+  "gemini_prompt": "A sculptural composition of a concrete geometric cross structure, intersecting block forms with sharp edges, matte porous concrete texture, placed in a vast minimalist white void, harsh directional studio lighting, long dramatic cast shadow, profound negative space, high contrast, clean architectural lines, monochrome palette, serene atmosphere, sharp focus, hyper-realistic, 8k resolution, minimalist aesthetic, one solitary tiny silhouette standing near the base to emphasize scale, absolute stillness, contemplative mood.",
+  "extra_prompt": "正方体",
+  "ref_paths": [
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\pinterest\\正方体-20260622T150459\\001.jpg",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\pinterest\\正方体-20260622T150459\\005.jpg",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\pinterest\\正方体-20260622T150459\\003.jpg"
+  ],
+  "ar": "9:16",
+  "stylize": 850,
+  "version": "7",
+  "outputs": [
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_150723_img2img_42221_1of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_150723_img2img_42221_2of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_150723_img2img_42221_3of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_150723_img2img_42221_4of4_result.png"
+  ]
+}

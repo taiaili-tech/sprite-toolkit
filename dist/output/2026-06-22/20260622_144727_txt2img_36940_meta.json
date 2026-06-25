@@ -1,0 +1,19 @@
+{
+  "timestamp": "20260622_144727",
+  "mode": "txt2img",
+  "model": "Image-MI",
+  "images_count": 4,
+  "prompt": "裸露钢桁架构成的大跨度工业空间, 阳光穿越钢桁架，地面形成平行条纹阴影, 工程美学，理性的精密感, 结构细节精准，高技派美学，材质真实，电影级打光，8K画质，无文字，无水印 --ar 16:9 --v 7 --stylize 850 --q 2",
+  "gemini_prompt": "",
+  "extra_prompt": "",
+  "ref_paths": [],
+  "ar": "9:16",
+  "stylize": 850,
+  "version": "7",
+  "outputs": [
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_144727_txt2img_36940_1of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_144727_txt2img_36940_2of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_144727_txt2img_36940_3of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_144727_txt2img_36940_4of4_result.png"
+  ]
+}

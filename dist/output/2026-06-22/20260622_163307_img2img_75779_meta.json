@@ -1,0 +1,22 @@
+{
+  "timestamp": "20260622_163307",
+  "mode": "img2img",
+  "model": "Image-MI",
+  "images_count": 4,
+  "prompt": "Cyberpunk monolith, a colossal megastructure rising from a dark rainy coast, massive brutalist tower embedded into jagged rocky cliffs, intricate industrial textures, rusting metal panels, hyper-detailed mechanical conduits, glowing neon circuitry embedded in the structure, rainy night atmosphere, deep reflective puddles, dark cyan and hot pink neon light pollution, cinematic volumetric fog, high-tech low-life aesthetic, one solitary tiny silhouette standing on the wet shore, moody lighting, wet surfaces, hyper-realistic, 8k resolution, intricate architectural details, moody cinematic composition, dark atmosphere with vibrant neon luminescence. --ar 9:16 --v 7 --stylize 900 --q 2",
+  "gemini_prompt": "Cyberpunk monolith, a colossal megastructure rising from a dark rainy coast, massive brutalist tower embedded into jagged rocky cliffs, intricate industrial textures, rusting metal panels, hyper-detailed mechanical conduits, glowing neon circuitry embedded in the structure, rainy night atmosphere, deep reflective puddles, dark cyan and hot pink neon light pollution, cinematic volumetric fog, high-tech low-life aesthetic, one solitary tiny silhouette standing on the wet shore, moody lighting, wet surfaces, hyper-realistic, 8k resolution, intricate architectural details, moody cinematic composition, dark atmosphere with vibrant neon luminescence.",
+  "extra_prompt": "",
+  "ref_paths": [
+    "D:/图片库/参考图/83605381-23be-4852-a610-acdb1388716b.jpg",
+    "D:/图片库/参考图/Snipaste_2026-06-11_10-48-28.png"
+  ],
+  "ar": "9:16",
+  "stylize": 900,
+  "version": "7",
+  "outputs": [
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_163307_img2img_75779_1of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_163307_img2img_75779_2of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_163307_img2img_75779_3of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_163307_img2img_75779_4of4_result.png"
+  ]
+}

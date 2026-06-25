@@ -1,0 +1,19 @@
+{
+  "timestamp": "20260622_162342",
+  "mode": "txt2img",
+  "model": "Image-MI",
+  "images_count": 4,
+  "prompt": "倒置的粗野主义巨塔，黄金时刻逆光，丁达尔光柱，荒芜孤寂，深沉的孤独感，电影级构图，a single lone figure for scale，超写实，8K画质",
+  "gemini_prompt": "",
+  "extra_prompt": "",
+  "ref_paths": [],
+  "ar": "9:16",
+  "stylize": 850,
+  "version": "7",
+  "outputs": [
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_162342_txt2img_25556_1of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_162342_txt2img_25556_2of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_162342_txt2img_25556_3of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_162342_txt2img_25556_4of4_result.png"
+  ]
+}

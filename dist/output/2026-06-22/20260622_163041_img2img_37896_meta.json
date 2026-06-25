@@ -1,0 +1,23 @@
+{
+  "timestamp": "20260622_163041",
+  "mode": "img2img",
+  "model": "Image-MI",
+  "images_count": 4,
+  "prompt": "cyberpunk city ruins, massive ruined skyscraper with exposed steel skeletons and shattered glass facade, central road with deep ground fissures and cracks, elevated highway overpass segment spanning the ruins, distant colossal impact crater, heavy rain, glowing neon light pollution, reflections in deep rainwater puddles, vibrant cyan and magenta volumetric fog, rusted metal debris, wet asphalt textures, ultra-detailed architectural decay, high-tech low-life aesthetic, one solitary tiny silhouette standing amidst the wreckage, cinematic lighting, hyper-realistic, 8k resolution, moody atmosphere, industrial dystopia, intricately rendered ruins --ar 9:16 --v 7 --stylize 850 --q 2\n废土城市",
+  "gemini_prompt": "cyberpunk city ruins, massive ruined skyscraper with exposed steel skeletons and shattered glass facade, central road with deep ground fissures and cracks, elevated highway overpass segment spanning the ruins, distant colossal impact crater, heavy rain, glowing neon light pollution, reflections in deep rainwater puddles, vibrant cyan and magenta volumetric fog, rusted metal debris, wet asphalt textures, ultra-detailed architectural decay, high-tech low-life aesthetic, one solitary tiny silhouette standing amidst the wreckage, cinematic lighting, hyper-realistic, 8k resolution, moody atmosphere, industrial dystopia, intricately rendered ruins",
+  "extra_prompt": "废土城市",
+  "ref_paths": [
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\pinterest\\废土城市-20260622T163025\\001.jpg",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\pinterest\\废土城市-20260622T163025\\003.jpg",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\pinterest\\废土城市-20260622T163025\\005.jpg"
+  ],
+  "ar": "9:16",
+  "stylize": 850,
+  "version": "7",
+  "outputs": [
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_163041_img2img_37896_1of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_163041_img2img_37896_2of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_163041_img2img_37896_3of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_163041_img2img_37896_4of4_result.png"
+  ]
+}

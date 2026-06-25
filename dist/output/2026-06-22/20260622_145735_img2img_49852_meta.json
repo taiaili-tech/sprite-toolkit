@@ -1,0 +1,22 @@
+{
+  "timestamp": "20260622_145735",
+  "mode": "img2img",
+  "model": "Image-MI",
+  "images_count": 4,
+  "prompt": "A single, isolated, sharply defined metallic triangular geometric sculpture resting on a cylindrical pedestal, brutalist inspiration, matte silver texture, clean edges, zero ornamentation. Atmospheric cinematic lighting, moody coastal cliffside, misty overcast grey sky, deep sea horizon, muted desaturated color palette, cold blue and dark grey tones. Massive negative space, vast quiet landscape, a single lone figure standing far away in the distance, dramatic scale contrast, photorealistic, serene, minimalist composition, highly detailed textures, soft diffused natural light, cinematic wide shot. --ar 9:16 --v 7 --stylize 900 --q 2",
+  "gemini_prompt": "A single, isolated, sharply defined metallic triangular geometric sculpture resting on a cylindrical pedestal, brutalist inspiration, matte silver texture, clean edges, zero ornamentation. Atmospheric cinematic lighting, moody coastal cliffside, misty overcast grey sky, deep sea horizon, muted desaturated color palette, cold blue and dark grey tones. Massive negative space, vast quiet landscape, a single lone figure standing far away in the distance, dramatic scale contrast, photorealistic, serene, minimalist composition, highly detailed textures, soft diffused natural light, cinematic wide shot.",
+  "extra_prompt": "",
+  "ref_paths": [
+    "D:/图片库/参考图/83605381-23be-4852-a610-acdb1388716b.jpg",
+    "D:/图片库/参考图/Snipaste_2026-06-11_10-48-46.png"
+  ],
+  "ar": "9:16",
+  "stylize": 900,
+  "version": "7",
+  "outputs": [
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_145735_img2img_49852_1of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_145735_img2img_49852_2of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_145735_img2img_49852_3of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_145735_img2img_49852_4of4_result.png"
+  ]
+}

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<title>测试素材生成器</title>
+<style>
+  body { font-family: system-ui; padding: 24px; background: #f8fafc; color: #1e293b; }
+  h1 { font-size: 18px; margin-bottom: 20px; }
+  .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px; margin-bottom: 16px; }
+  .card h2 { font-size: 14px; font-weight: 700; margin: 0 0 12px; color: #4338ca; }
+  canvas { border: 1px solid #e2e8f0; border-radius: 6px; display: block; margin: 10px 0; max-width: 100%; }
+  button { padding: 7px 16px; border-radius: 6px; border: none; background: #6366f1; color: #fff; font-size: 13px; cursor: pointer; margin-right: 8px; }
+  button:hover { background: #4338ca; }
+  .desc { font-size: 12px; color: #64748b; margin-bottom: 8px; }
+  .row { display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-start; }
+</style>
+</head>
+<body>
+<h1>🧪 Sprite Toolkit — 测试素材生成器</h1>
+<p style="font-size:13px;color:#64748b;margin-bottom:20px;">点击下方「下载」按钮获取测试文件，然后拖入 <a href="http://localhost:5173" target="_blank">localhost:5173</a> 进行测试。</p>
+
+<!-- 精灵图 2×8 共17帧 -->
+<div class="card">
+  <h2>素材 A：精灵图 2行×8列（17帧，末尾1格为空）</h2>
+  <div class="desc">用于测试「精灵图→GIF」的<strong>实际帧数</strong>和<strong>智能布局建议</strong>功能</div>
+  <div class="row">
+    <div>
+      <canvas id="spriteA"></canvas>
+      <button onclick="downloadCanvas('spriteA','sprite_2x8_17frames.png')">⬇ 下载精灵图</button>
+    </div>
+  </div>
+</div>
+
+<!-- 精灵图 3×3 共9帧 -->
+<div class="card">
+  <h2>素材 B：精灵图 3行×3列（9帧，满格）</h2>
+  <div class="desc">用于测试<strong>快捷预设 3×3</strong> 及正常导出</div>
+  <div class="row">
+    <div>
+      <canvas id="spriteB"></canvas>
+      <button onclick="downloadCanvas('spriteB','sprite_3x3_9frames.png')">⬇ 下载精灵图</button>
+    </div>
+  </div>
+</div>
+
+<!-- metadata.json -->
+<div class="card">
+  <h2>素材 C：metadata.json（对应素材 A）</h2>
+  <div class="desc">用于测试「精灵图→GIF」的<strong>自动填参</strong>功能（不用手动填列数/行数/FPS）</div>
+  <button onclick="downloadMeta()">⬇ 下载 metadata.json</button>
+</div>
+
+<!-- GIF 测试文件 -->
+<div class="card">
+  <h2>素材 D：模拟 GIF（用 Canvas 逐帧合成）</h2>
+  <div class="desc">提示：由于浏览器安全限制无法直接生成 .gif，请用系统自带 GIF 或从网上下载一个测试 GIF 拖入「GIF→精灵图」标签页即可。</div>
+  <div style="font-size:12px;color:#94a3b8;">推荐：<a href="https://media.giphy.com/media/3o7abKhOpu0NwenH3O/giphy.gif" target="_blank">示例 GIF（点击另存为）</a></div>
+</div>
+
+<!-- 测试检查清单 -->
+<div class="card" style="background:#f0fdf4;border-color:#bbf7d0;">
+  <h2 style="color:#166534;">✅ 测试检查清单</h2>
+  <div style="font-size:13px;line-height:2;">
+    <b>【精灵图 → GIF】</b><br>
+    <label><input type="checkbox"> 上传素材A，预设选 <code>2×8</code>，动画正常播放</label><br>
+    <label><input type="checkbox"> 实际帧数填 <code>17</code>，导出 GIF 共 17 帧（不含末尾空白格）</label><br>
+    <label><input type="checkbox"> 点「🔍 智能布局建议」→ 出现候选布局列表，点击可应用</label><br>
+    <label><input type="checkbox"> 同时上传素材A和素材B（多选），顶部出现两个文件 tab</label><br>
+    <label><input type="checkbox"> 切换 tab 预览不同文件，导出得到 <code>sprite_to_gif_batch.zip</code>（内含2个GIF）</label><br>
+    <label><input type="checkbox"> 拖入素材C（metadata.json），行/列/FPS 自动填充</label><br>
+    <br>
+    <b>【GIF → 精灵图】</b><br>
+    <label><input type="checkbox"> 拖入1个GIF，点 <code>2×2</code> 按钮，预览变为2列布局</label><br>
+    <label><input type="checkbox"> 点 <code>3×3</code> 按钮，预览更新为3列</label><br>
+    <label><input type="checkbox"> 导出得到 <code>gif_to_sprite.zip</code>，内含 PNG + metadata.json</label><br>
+    <label><input type="checkbox"> 同时拖入2个GIF，顶部出现文件 tab，可切换预览</label><br>
+    <label><input type="checkbox"> 批量导出得到 <code>gif_to_sprite_batch.zip</code>，内含2组文件</label><br>
+  </div>
+</div>
+
+<script>
+// ── 绘制精灵图 A：2行×8列，17帧彩色方块 ──────────────────────────────────
+const COLORS = [
+  '#ef4444','#f97316','#eab308','#22c55e','#14b8a6',
+  '#3b82f6','#8b5cf6','#ec4899','#f43f5e','#fb923c',
+  '#facc15','#4ade80','#2dd4bf','#60a5fa','#a78bfa',
+  '#f472b6','#94a3b8'
+]
+
+function drawSpriteSheet(canvasId, totalCols, totalRows, frameCount, frameSize) {
+  const canvas = document.getElementById(canvasId)
+  canvas.width = totalCols * frameSize
+  canvas.height = totalRows * frameSize
+  const ctx = canvas.getContext('2d')
+  ctx.fillStyle = '#1e293b'
+  ctx.fillRect(0, 0, canvas.width, canvas.height)
+  for (let i = 0; i < frameCount; i++) {
+    const col = i % totalCols
+    const row = Math.floor(i / totalCols)
+    const x = col * frameSize, y = row * frameSize
+    // 背景色
+    ctx.fillStyle = COLORS[i % COLORS.length]
+    ctx.fillRect(x + 4, y + 4, frameSize - 8, frameSize - 8)
+    // 帧编号
+    ctx.fillStyle = '#fff'
+    ctx.font = `bold ${Math.floor(frameSize * 0.35)}px system-ui`
+    ctx.textAlign = 'center'
+    ctx.textBaseline = 'middle'
+    ctx.fillText(i + 1, x + frameSize / 2, y + frameSize / 2)
+    // 圆角标记
+    ctx.strokeStyle = 'rgba(255,255,255,0.3)'
+    ctx.lineWidth = 1
+    ctx.strokeRect(x + 4, y + 4, frameSize - 8, frameSize - 8)
+  }
+  // 网格线
+  ctx.strokeStyle = 'rgba(255,255,255,0.15)'
+  ctx.lineWidth = 1
+  for (let r = 1; r < totalRows; r++) {
+    ctx.beginPath(); ctx.moveTo(0, r*frameSize); ctx.lineTo(canvas.width, r*frameSize); ctx.stroke()
+  }
+  for (let c = 1; c < totalCols; c++) {
+    ctx.beginPath(); ctx.moveTo(c*frameSize, 0); ctx.lineTo(c*frameSize, canvas.height); ctx.stroke()
+  }
+}
+
+drawSpriteSheet('spriteA', 8, 2, 17, 64)  // 2×8，17帧，每帧64px
+drawSpriteSheet('spriteB', 3, 3,  9, 80)  // 3×3，9帧，每帧80px
+
+// ── 下载 canvas 为 PNG ────────────────────────────────────────────────────────
+function downloadCanvas(id, filename) {
+  const canvas = document.getElementById(id)
+  const a = document.createElement('a')
+  a.href = canvas.toDataURL('image/png')
+  a.download = filename
+  a.click()
+}
+
+// ── 下载 metadata.json（对应素材A：2×8，17帧，FPS=10）──────────────────────
+function downloadMeta() {
+  const delays = Array(17).fill(100)  // 10fps = 100ms/帧
+  const meta = {
+    frameCount: 17,
+    frameWidth: 64,
+    frameHeight: 64,
+    cols: 8,
+    rows: 2,
+    delays,
+    loopCount: 0
+  }
+  const blob = new Blob([JSON.stringify(meta, null, 2)], { type: 'application/json' })
+  const a = document.createElement('a')
+  a.href = URL.createObjectURL(blob)
+  a.download = 'metadata.json'
+  a.click()
+}
+</script>
+</body>
+</html>

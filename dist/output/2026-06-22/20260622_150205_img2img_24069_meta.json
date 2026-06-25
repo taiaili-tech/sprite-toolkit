@@ -1,0 +1,23 @@
+{
+  "timestamp": "20260622_150205",
+  "mode": "img2img",
+  "model": "Image-MI",
+  "images_count": 4,
+  "prompt": "minimalist photography, a single lone figure standing in a vast desolate landscape, the figure wears a distinctive conical straw hat, a detailed gas mask with prominent circular eye lenses and a breathing tube, rugged layered tactical rags and weathered utility gear, a small teddy bear hanging from the backpack, cinematic soft natural lighting, muted earth tones, extreme negative space, clean solid grey background, high contrast shadows, sharp focus on geometric texture and material, hyper-realistic, understated composition, contemplative atmosphere, profound solitude --ar 9:16 --v 7 --stylize 850 --q 2\n废土",
+  "gemini_prompt": "minimalist photography, a single lone figure standing in a vast desolate landscape, the figure wears a distinctive conical straw hat, a detailed gas mask with prominent circular eye lenses and a breathing tube, rugged layered tactical rags and weathered utility gear, a small teddy bear hanging from the backpack, cinematic soft natural lighting, muted earth tones, extreme negative space, clean solid grey background, high contrast shadows, sharp focus on geometric texture and material, hyper-realistic, understated composition, contemplative atmosphere, profound solitude",
+  "extra_prompt": "废土",
+  "ref_paths": [
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\pinterest\\废土-20260622T150146\\003.jpg",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\pinterest\\废土-20260622T150146\\005.jpg",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\pinterest\\废土-20260622T150146\\004.jpg"
+  ],
+  "ar": "9:16",
+  "stylize": 850,
+  "version": "7",
+  "outputs": [
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_150205_img2img_24069_1of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_150205_img2img_24069_2of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_150205_img2img_24069_3of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_150205_img2img_24069_4of4_result.png"
+  ]
+}

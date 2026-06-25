@@ -1,0 +1,19 @@
+{
+  "timestamp": "20260622_145459",
+  "mode": "txt2img",
+  "model": "Image-MI",
+  "images_count": 4,
+  "prompt": "漂浮于空旷地面的纯白混凝土方盒, 漫射天光，均质无影，一切消于白, 绝对的静默，时间在此停止, 极简构图，大量留白，单一主体，超写实材质细节，8K画质，无文字，无水印 --ar 16:9 --v 7 --stylize 850 --q 2",
+  "gemini_prompt": "",
+  "extra_prompt": "",
+  "ref_paths": [],
+  "ar": "4:3",
+  "stylize": 850,
+  "version": "7",
+  "outputs": [
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_145459_txt2img_87681_1of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_145459_txt2img_87681_2of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_145459_txt2img_87681_3of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_145459_txt2img_87681_4of4_result.png"
+  ]
+}

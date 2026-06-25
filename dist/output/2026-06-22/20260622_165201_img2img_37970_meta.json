@@ -1,0 +1,22 @@
+{
+  "timestamp": "20260622_165201",
+  "mode": "img2img",
+  "model": "Image-MI",
+  "images_count": 4,
+  "prompt": "A massive, monolithic vertical cliffside megastructure, featuring a sheer rectangular planar facade with deep recessed vertical channels, intricate modular paneling, layered geometric protrusions, and sharp-angled structural indentations, towering over a coastal abyss, cyberpunk urban transformation, vibrant neon-drenched facade with pulsating magenta and acid-green holographic advertisements, dense light pollution reflected on rain-slicked wet cliff-edge walkways, heavy atmospheric fog and swirling mist, cinematic moody lighting, deep nocturnal shadows contrasting with blinding LED installations, chaotic information-dense urban landscape, hyper-realistic, 8k resolution, futuristic brutalist architecture, complex industrial detailing, melancholic dystopian atmosphere, cinematic wide-angle composition, sharp focus, metallic textures illuminated by glowing data streams. --ar 9:16 --v 7 --stylize 900 --q 2",
+  "gemini_prompt": "A massive, monolithic vertical cliffside megastructure, featuring a sheer rectangular planar facade with deep recessed vertical channels, intricate modular paneling, layered geometric protrusions, and sharp-angled structural indentations, towering over a coastal abyss, cyberpunk urban transformation, vibrant neon-drenched facade with pulsating magenta and acid-green holographic advertisements, dense light pollution reflected on rain-slicked wet cliff-edge walkways, heavy atmospheric fog and swirling mist, cinematic moody lighting, deep nocturnal shadows contrasting with blinding LED installations, chaotic information-dense urban landscape, hyper-realistic, 8k resolution, futuristic brutalist architecture, complex industrial detailing, melancholic dystopian atmosphere, cinematic wide-angle composition, sharp focus, metallic textures illuminated by glowing data streams.",
+  "extra_prompt": "",
+  "ref_paths": [
+    "D:/图片库/参考图/83605381-23be-4852-a610-acdb1388716b.jpg",
+    "D:/图片库/参考图/83605381-23be-4852-a610-acdb1388716b.jpg"
+  ],
+  "ar": "9:16",
+  "stylize": 900,
+  "version": "7",
+  "outputs": [
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_165201_img2img_37970_1of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_165201_img2img_37970_2of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_165201_img2img_37970_3of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_165201_img2img_37970_4of4_result.png"
+  ]
+}

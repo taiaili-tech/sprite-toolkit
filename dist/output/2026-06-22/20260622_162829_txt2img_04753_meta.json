@@ -1,0 +1,19 @@
+{
+  "timestamp": "20260622_162829",
+  "mode": "txt2img",
+  "model": "Image-MI",
+  "images_count": 4,
+  "prompt": "霓虹广告牌层叠覆盖的垂直贫民窟塔楼, 霓虹红蓝交叉，雨夜积水完整倒影, 高科技低生活，繁华与腐败并存, 赛博朋克美学，霓虹光污染，雨夜积水反光，超写实，8K画质，无文字，无水印 --ar 16:9 --v 7 --stylize 850 --q 2",
+  "gemini_prompt": "",
+  "extra_prompt": "",
+  "ref_paths": [],
+  "ar": "16:9",
+  "stylize": 850,
+  "version": "7",
+  "outputs": [
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_162829_txt2img_04753_1of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_162829_txt2img_04753_2of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_162829_txt2img_04753_3of4_result.png",
+    "C:\\Users\\lf265601\\Desktop\\临时\\MJ批量生图_引擎\\dist\\output\\2026-06-22\\20260622_162829_txt2img_04753_4of4_result.png"
+  ]
+}

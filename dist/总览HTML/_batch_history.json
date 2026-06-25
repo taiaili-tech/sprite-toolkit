@@ -1,0 +1,482 @@
+[
+  {
+    "batch_ts": "20260622_165201",
+    "theme": "赛博朋克",
+    "done": 1,
+    "failed": 0,
+    "elapsed_s": 116.6,
+    "report_file": "../output/2026-06-22/report_20260622_165201.html",
+    "tasks": [
+      {
+        "n": 1,
+        "status": "done",
+        "mode": "img2img",
+        "style_path": "D:/图片库/参考图/83605381-23be-4852-a610-acdb1388716b.jpg",
+        "char_path": "D:/图片库/参考图/83605381-23be-4852-a610-acdb1388716b.jpg",
+        "theme_path": "",
+        "theme_path2": "",
+        "output_path": "../output/2026-06-22/20260622_165201_img2img_37970_1of4_result.png",
+        "output_paths": [
+          "../output/2026-06-22/20260622_165201_img2img_37970_1of4_result.png",
+          "../output/2026-06-22/20260622_165201_img2img_37970_2of4_result.png",
+          "../output/2026-06-22/20260622_165201_img2img_37970_3of4_result.png",
+          "../output/2026-06-22/20260622_165201_img2img_37970_4of4_result.png"
+        ],
+        "elapsed_s": 116.6,
+        "prompt": "A massive, monolithic vertical cliffside megastructure, featuring a sheer rectangular planar facade with deep recessed vertical channels, intricate modular paneling, layered geometric protrusions, and sharp-angled structural indentations, towering over a coastal abyss, cyberpunk urban transformation, vibrant neon-drenched facade with pulsating magenta and acid-green holographic advertisements, dense light pollution reflected on rain-slicked wet cliff-edge walkways, heavy atmospheric fog and swirling mist, cinematic moody lighting, deep nocturnal shadows contrasting with blinding LED installations, chaotic information-dense urban landscape, hyper-realistic, 8k resolution, futuristic brutalist architecture, complex industrial detailing, melancholic dystopian atmosphere, cinematic wide-angle composition, sharp focus, metallic textures illuminated by glowing data streams. --ar 9:16 --v 7 --stylize 900 --q 2",
+        "extra_prompt": "",
+        "error": ""
+      }
+    ]
+  },
+  {
+    "batch_ts": "20260622_164956",
+    "theme": "赛博朋克",
+    "done": 1,
+    "failed": 0,
+    "elapsed_s": 93.9,
+    "report_file": "../output/2026-06-22/report_20260622_164956.html",
+    "tasks": [
+      {
+        "n": 1,
+        "status": "done",
+        "mode": "img2img",
+        "style_path": "D:/图片库/参考图/83605381-23be-4852-a610-acdb1388716b.jpg",
+        "char_path": "D:/图片库/参考图/Snipaste_2026-06-11_10-48-28.png",
+        "theme_path": "D:/图片库/参考图/83605381-23be-4852-a610-acdb1388716b.jpg",
+        "theme_path2": "",
+        "output_path": "../output/2026-06-22/20260622_164956_img2img_90153_1of4_result.png",
+        "output_paths": [
+          "../output/2026-06-22/20260622_164956_img2img_90153_1of4_result.png",
+          "../output/2026-06-22/20260622_164956_img2img_90153_2of4_result.png",
+          "../output/2026-06-22/20260622_164956_img2img_90153_3of4_result.png",
+          "../output/2026-06-22/20260622_164956_img2img_90153_4of4_result.png"
+        ],
+        "elapsed_s": 93.9,
+        "prompt": "A monumental spherical flask-shaped skyscraper with a prominent tapered neck and a prominent cork-like apex, featuring a wide bulbous glass body and an organic curved silhouette, massive urban scale, cyberpunk metropolis, glowing neon acid green liquid interior, dense holographic interfaces and flickering LED signage, rain-slicked dark metallic textures, heavy industrial atmosphere, deep midnight blue and magenta neon light pollution, reflective wet asphalt streets, cinematic wide shot, volumetric fog and thick smog, hyper-realistic, intricate high-tech mechanical surface details, high contrast, moody atmospheric lighting, futuristic dystopia. --ar 9:16 --v 7 --stylize 900 --q 2",
+        "extra_prompt": "",
+        "error": ""
+      }
+    ]
+  },
+  {
+    "batch_ts": "20260622_163307",
+    "theme": "赛博朋克",
+    "done": 1,
+    "failed": 0,
+    "elapsed_s": 88.0,
+    "report_file": "../output/2026-06-22/report_20260622_163307.html",
+    "tasks": [
+      {
+        "n": 1,
+        "status": "done",
+        "mode": "img2img",
+        "style_path": "D:/图片库/参考图/83605381-23be-4852-a610-acdb1388716b.jpg",
+        "char_path": "D:/图片库/参考图/Snipaste_2026-06-11_10-48-28.png",
+        "theme_path": "",
+        "theme_path2": "",
+        "output_path": "../output/2026-06-22/20260622_163307_img2img_75779_1of4_result.png",
+        "output_paths": [
+          "../output/2026-06-22/20260622_163307_img2img_75779_1of4_result.png",
+          "../output/2026-06-22/20260622_163307_img2img_75779_2of4_result.png",
+          "../output/2026-06-22/20260622_163307_img2img_75779_3of4_result.png",
+          "../output/2026-06-22/20260622_163307_img2img_75779_4of4_result.png"
+        ],
+        "elapsed_s": 88.0,
+        "prompt": "Cyberpunk monolith, a colossal megastructure rising from a dark rainy coast, massive brutalist tower embedded into jagged rocky cliffs, intricate industrial textures, rusting metal panels, hyper-detailed mechanical conduits, glowing neon circuitry embedded in the structure, rainy night atmosphere, deep reflective puddles, dark cyan and hot pink neon light pollution, cinematic volumetric fog, high-tech low-life aesthetic, one solitary tiny silhouette standing on the wet shore, moody lighting, wet surfaces, hyper-realistic, 8k resolution, intricate architectural details, moody cinematic composition, dark atmosphere with vibrant neon luminescence. --ar 9:16 --v 7 --stylize 900 --q 2",
+        "extra_prompt": "",
+        "error": ""
+      }
+    ]
+  },
+  {
+    "batch_ts": "20260622_163041",
+    "theme": "赛博朋克",
+    "done": 1,
+    "failed": 0,
+    "elapsed_s": 96.2,
+    "report_file": "../output/2026-06-22/report_20260622_163041.html",
+    "tasks": [
+      {
+        "n": 1,
+        "status": "done",
+        "mode": "img2img",
+        "style_path": "../output/pinterest/废土城市-20260622T163025/001.jpg",
+        "char_path": "../output/pinterest/废土城市-20260622T163025/003.jpg",
+        "theme_path": "../output/pinterest/废土城市-20260622T163025/005.jpg",
+        "theme_path2": "",
+        "output_path": "../output/2026-06-22/20260622_163041_img2img_37896_1of4_result.png",
+        "output_paths": [
+          "../output/2026-06-22/20260622_163041_img2img_37896_1of4_result.png",
+          "../output/2026-06-22/20260622_163041_img2img_37896_2of4_result.png",
+          "../output/2026-06-22/20260622_163041_img2img_37896_3of4_result.png",
+          "../output/2026-06-22/20260622_163041_img2img_37896_4of4_result.png"
+        ],
+        "elapsed_s": 96.2,
+        "prompt": "cyberpunk city ruins, massive ruined skyscraper with exposed steel skeletons and shattered glass facade, central road with deep ground fissures and cracks, elevated highway overpass segment spanning the ruins, distant colossal impact crater, heavy rain, glowing neon light pollution, reflections in deep rainwater puddles, vibrant cyan and magenta volumetric fog, rusted metal debris, wet asphalt textures, ultra-detailed architectural decay, high-tech low-life aesthetic, one solitary tiny silhouette standing amidst the wreckage, cinematic lighting, hyper-realistic, 8k resolution, moody atmosphere, industrial dystopia, intricately rendered ruins --ar 9:16 --v 7 --stylize 850 --q 2\n废土城市",
+        "extra_prompt": "废土城市",
+        "error": ""
+      }
+    ]
+  },
+  {
+    "batch_ts": "20260622_162829",
+    "theme": "赛博朋克",
+    "done": 1,
+    "failed": 0,
+    "elapsed_s": 95.5,
+    "report_file": "../output/2026-06-22/report_20260622_162829.html",
+    "tasks": [
+      {
+        "n": 1,
+        "status": "done",
+        "mode": "txt2img",
+        "style_path": "",
+        "char_path": "",
+        "theme_path": "",
+        "theme_path2": "",
+        "output_path": "../output/2026-06-22/20260622_162829_txt2img_04753_1of4_result.png",
+        "output_paths": [
+          "../output/2026-06-22/20260622_162829_txt2img_04753_1of4_result.png",
+          "../output/2026-06-22/20260622_162829_txt2img_04753_2of4_result.png",
+          "../output/2026-06-22/20260622_162829_txt2img_04753_3of4_result.png",
+          "../output/2026-06-22/20260622_162829_txt2img_04753_4of4_result.png"
+        ],
+        "elapsed_s": 95.5,
+        "prompt": "霓虹广告牌层叠覆盖的垂直贫民窟塔楼, 霓虹红蓝交叉，雨夜积水完整倒影, 高科技低生活，繁华与腐败并存, 赛博朋克美学，霓虹光污染，雨夜积水反光，超写实，8K画质，无文字，无水印 --ar 16:9 --v 7 --stylize 850 --q 2",
+        "extra_prompt": "",
+        "error": ""
+      }
+    ]
+  },
+  {
+    "batch_ts": "20260622_162550",
+    "theme": "哥特主义",
+    "done": 1,
+    "failed": 0,
+    "elapsed_s": 91.4,
+    "report_file": "../output/2026-06-22/report_20260622_162550.html",
+    "tasks": [
+      {
+        "n": 1,
+        "status": "done",
+        "mode": "txt2img",
+        "style_path": "",
+        "char_path": "",
+        "theme_path": "",
+        "theme_path2": "",
+        "output_path": "../output/2026-06-22/20260622_162550_txt2img_42288_1of4_result.png",
+        "output_paths": [
+          "../output/2026-06-22/20260622_162550_txt2img_42288_1of4_result.png",
+          "../output/2026-06-22/20260622_162550_txt2img_42288_2of4_result.png",
+          "../output/2026-06-22/20260622_162550_txt2img_42288_3of4_result.png",
+          "../output/2026-06-22/20260622_162550_txt2img_42288_4of4_result.png"
+        ],
+        "elapsed_s": 91.4,
+        "prompt": "千年石柱支撑的无尽哥特大教堂中殿, 彩色玻璃投射的彩虹碎光铺满地面, 神圣肃穆，时间凝固于石头之中, 哥特石雕精细，神圣光影，超写实，极度细节，8K画质，无文字，无水印 --ar 9:16 --v 7 --stylize 850 --q 2",
+        "extra_prompt": "",
+        "error": ""
+      }
+    ]
+  },
+  {
+    "batch_ts": "20260622_162342",
+    "theme": "哥特主义",
+    "done": 1,
+    "failed": 0,
+    "elapsed_s": 103.4,
+    "report_file": "../output/2026-06-22/report_20260622_162342.html",
+    "tasks": [
+      {
+        "n": 1,
+        "status": "done",
+        "mode": "txt2img",
+        "style_path": "",
+        "char_path": "",
+        "theme_path": "",
+        "theme_path2": "",
+        "output_path": "../output/2026-06-22/20260622_162342_txt2img_25556_1of4_result.png",
+        "output_paths": [
+          "../output/2026-06-22/20260622_162342_txt2img_25556_1of4_result.png",
+          "../output/2026-06-22/20260622_162342_txt2img_25556_2of4_result.png",
+          "../output/2026-06-22/20260622_162342_txt2img_25556_3of4_result.png",
+          "../output/2026-06-22/20260622_162342_txt2img_25556_4of4_result.png"
+        ],
+        "elapsed_s": 103.4,
+        "prompt": "倒置的粗野主义巨塔，黄金时刻逆光，丁达尔光柱，荒芜孤寂，深沉的孤独感，电影级构图，a single lone figure for scale，超写实，8K画质",
+        "extra_prompt": "",
+        "error": ""
+      }
+    ]
+  },
+  {
+    "batch_ts": "20260622_162151",
+    "theme": "哥特主义",
+    "done": 1,
+    "failed": 0,
+    "elapsed_s": 94.4,
+    "report_file": "../output/2026-06-22/report_20260622_162151.html",
+    "tasks": [
+      {
+        "n": 1,
+        "status": "done",
+        "mode": "img2img",
+        "style_path": "../output/pinterest/教堂-20260622T162137/001.jpg",
+        "char_path": "../output/pinterest/教堂-20260622T162137/004.jpg",
+        "theme_path": "../output/pinterest/教堂-20260622T162137/002.jpg",
+        "theme_path2": "",
+        "output_path": "../output/2026-06-22/20260622_162151_img2img_06123_1of4_result.png",
+        "output_paths": [
+          "../output/2026-06-22/20260622_162151_img2img_06123_1of4_result.png",
+          "../output/2026-06-22/20260622_162151_img2img_06123_2of4_result.png",
+          "../output/2026-06-22/20260622_162151_img2img_06123_3of4_result.png",
+          "../output/2026-06-22/20260622_162151_img2img_06123_4of4_result.png"
+        ],
+        "elapsed_s": 94.4,
+        "prompt": "Gothic cathedral interior, dramatic chiaroscuro lighting, ethereal moonlight filtering through intricate stained glass, haunting and mysterious atmosphere, majestic stone architecture, soaring pointed arches, intricate ribbed vaulting, elaborate stone tracery, flying buttresses supporting the heavy structure, fine stone carving details, solemn and sacred aesthetic, one solitary tiny silhouette of a pilgrim, dusty air particles dancing in beams of light, desaturated moody tones, cold marble textures, hyper-realistic, cinematic composition, silent sanctuary, solemn and imposing scale. --ar 16:9 --v 7 --stylize 850 --q 2\n教堂",
+        "extra_prompt": "教堂",
+        "error": ""
+      }
+    ]
+  },
+  {
+    "batch_ts": "20260622_151534",
+    "done": 1,
+    "failed": 0,
+    "elapsed_s": 105.5,
+    "report_file": "../output/2026-06-22/report_20260622_151534.html",
+    "tasks": [
+      {
+        "n": 1,
+        "status": "done",
+        "mode": "txt2img",
+        "style_path": "",
+        "char_path": "",
+        "theme_path": "",
+        "theme_path2": "",
+        "output_path": "../output/2026-06-22/20260622_151534_txt2img_39720_1of4_result.png",
+        "output_paths": [
+          "../output/2026-06-22/20260622_151534_txt2img_39720_1of4_result.png",
+          "../output/2026-06-22/20260622_151534_txt2img_39720_2of4_result.png",
+          "../output/2026-06-22/20260622_151534_txt2img_39720_3of4_result.png",
+          "../output/2026-06-22/20260622_151534_txt2img_39720_4of4_result.png"
+        ],
+        "elapsed_s": 105.5,
+        "prompt": "外置管道与彩色设备系统构成的立面, 阳光穿越钢桁架，地面形成平行条纹阴影, 工程美学，理性的精密感, 结构细节精准，高技派美学，材质真实，电影级打光，8K画质，无文字，无水印 --ar 16:9 --v 7 --stylize 850 --q 2",
+        "extra_prompt": "",
+        "error": ""
+      }
+    ],
+    "theme": "结构主义"
+  },
+  {
+    "batch_ts": "20260622_150723",
+    "done": 1,
+    "failed": 0,
+    "elapsed_s": 98.8,
+    "report_file": "../output/2026-06-22/report_20260622_150723.html",
+    "tasks": [
+      {
+        "n": 1,
+        "status": "done",
+        "mode": "img2img",
+        "style_path": "../output/pinterest/正方体-20260622T150459/001.jpg",
+        "char_path": "../output/pinterest/正方体-20260622T150459/005.jpg",
+        "theme_path": "../output/pinterest/正方体-20260622T150459/003.jpg",
+        "theme_path2": "",
+        "output_path": "../output/2026-06-22/20260622_150723_img2img_42221_1of4_result.png",
+        "output_paths": [
+          "../output/2026-06-22/20260622_150723_img2img_42221_1of4_result.png",
+          "../output/2026-06-22/20260622_150723_img2img_42221_2of4_result.png",
+          "../output/2026-06-22/20260622_150723_img2img_42221_3of4_result.png",
+          "../output/2026-06-22/20260622_150723_img2img_42221_4of4_result.png"
+        ],
+        "elapsed_s": 98.8,
+        "prompt": "A sculptural composition of a concrete geometric cross structure, intersecting block forms with sharp edges, matte porous concrete texture, placed in a vast minimalist white void, harsh directional studio lighting, long dramatic cast shadow, profound negative space, high contrast, clean architectural lines, monochrome palette, serene atmosphere, sharp focus, hyper-realistic, 8k resolution, minimalist aesthetic, one solitary tiny silhouette standing near the base to emphasize scale, absolute stillness, contemplative mood. --ar 9:16 --v 7 --stylize 850 --q 2\n正方体",
+        "extra_prompt": "正方体",
+        "error": ""
+      }
+    ],
+    "theme": "极简主义"
+  },
+  {
+    "batch_ts": "20260622_150205",
+    "done": 1,
+    "failed": 0,
+    "elapsed_s": 98.3,
+    "report_file": "../output/2026-06-22/report_20260622_150205.html",
+    "tasks": [
+      {
+        "n": 1,
+        "status": "done",
+        "mode": "img2img",
+        "style_path": "../output/pinterest/废土-20260622T150146/003.jpg",
+        "char_path": "../output/pinterest/废土-20260622T150146/005.jpg",
+        "theme_path": "../output/pinterest/废土-20260622T150146/004.jpg",
+        "theme_path2": "",
+        "output_path": "../output/2026-06-22/20260622_150205_img2img_24069_1of4_result.png",
+        "output_paths": [
+          "../output/2026-06-22/20260622_150205_img2img_24069_1of4_result.png",
+          "../output/2026-06-22/20260622_150205_img2img_24069_2of4_result.png",
+          "../output/2026-06-22/20260622_150205_img2img_24069_3of4_result.png",
+          "../output/2026-06-22/20260622_150205_img2img_24069_4of4_result.png"
+        ],
+        "elapsed_s": 98.3,
+        "prompt": "minimalist photography, a single lone figure standing in a vast desolate landscape, the figure wears a distinctive conical straw hat, a detailed gas mask with prominent circular eye lenses and a breathing tube, rugged layered tactical rags and weathered utility gear, a small teddy bear hanging from the backpack, cinematic soft natural lighting, muted earth tones, extreme negative space, clean solid grey background, high contrast shadows, sharp focus on geometric texture and material, hyper-realistic, understated composition, contemplative atmosphere, profound solitude --ar 9:16 --v 7 --stylize 850 --q 2\n废土",
+        "extra_prompt": "废土",
+        "error": ""
+      }
+    ],
+    "theme": "极简主义"
+  },
+  {
+    "batch_ts": "20260622_145735",
+    "done": 1,
+    "failed": 0,
+    "elapsed_s": 93.9,
+    "report_file": "../output/2026-06-22/report_20260622_145735.html",
+    "tasks": [
+      {
+        "n": 1,
+        "status": "done",
+        "mode": "img2img",
+        "style_path": "D:/图片库/参考图/83605381-23be-4852-a610-acdb1388716b.jpg",
+        "char_path": "D:/图片库/参考图/Snipaste_2026-06-11_10-48-46.png",
+        "theme_path": "",
+        "theme_path2": "",
+        "output_path": "../output/2026-06-22/20260622_145735_img2img_49852_1of4_result.png",
+        "output_paths": [
+          "../output/2026-06-22/20260622_145735_img2img_49852_1of4_result.png",
+          "../output/2026-06-22/20260622_145735_img2img_49852_2of4_result.png",
+          "../output/2026-06-22/20260622_145735_img2img_49852_3of4_result.png",
+          "../output/2026-06-22/20260622_145735_img2img_49852_4of4_result.png"
+        ],
+        "elapsed_s": 93.9,
+        "prompt": "A single, isolated, sharply defined metallic triangular geometric sculpture resting on a cylindrical pedestal, brutalist inspiration, matte silver texture, clean edges, zero ornamentation. Atmospheric cinematic lighting, moody coastal cliffside, misty overcast grey sky, deep sea horizon, muted desaturated color palette, cold blue and dark grey tones. Massive negative space, vast quiet landscape, a single lone figure standing far away in the distance, dramatic scale contrast, photorealistic, serene, minimalist composition, highly detailed textures, soft diffused natural light, cinematic wide shot. --ar 9:16 --v 7 --stylize 900 --q 2",
+        "extra_prompt": "",
+        "error": ""
+      }
+    ],
+    "theme": "极简主义"
+  },
+  {
+    "batch_ts": "20260622_145459",
+    "done": 1,
+    "failed": 0,
+    "elapsed_s": 88.4,
+    "report_file": "../output/2026-06-22/report_20260622_145459.html",
+    "tasks": [
+      {
+        "n": 1,
+        "status": "done",
+        "mode": "txt2img",
+        "style_path": "",
+        "char_path": "",
+        "theme_path": "",
+        "theme_path2": "",
+        "output_path": "../output/2026-06-22/20260622_145459_txt2img_87681_1of4_result.png",
+        "output_paths": [
+          "../output/2026-06-22/20260622_145459_txt2img_87681_1of4_result.png",
+          "../output/2026-06-22/20260622_145459_txt2img_87681_2of4_result.png",
+          "../output/2026-06-22/20260622_145459_txt2img_87681_3of4_result.png",
+          "../output/2026-06-22/20260622_145459_txt2img_87681_4of4_result.png"
+        ],
+        "elapsed_s": 88.4,
+        "prompt": "漂浮于空旷地面的纯白混凝土方盒, 漫射天光，均质无影，一切消于白, 绝对的静默，时间在此停止, 极简构图，大量留白，单一主体，超写实材质细节，8K画质，无文字，无水印 --ar 16:9 --v 7 --stylize 850 --q 2",
+        "extra_prompt": "",
+        "error": ""
+      }
+    ],
+    "theme": "极简主义"
+  },
+  {
+    "batch_ts": "20260622_145313",
+    "done": 1,
+    "failed": 0,
+    "elapsed_s": 84.1,
+    "report_file": "../output/2026-06-22/report_20260622_145313.html",
+    "tasks": [
+      {
+        "n": 1,
+        "status": "done",
+        "mode": "txt2img",
+        "style_path": "",
+        "char_path": "",
+        "theme_path": "",
+        "theme_path2": "",
+        "output_path": "../output/2026-06-22/20260622_145313_txt2img_77667_1of4_result.png",
+        "output_paths": [
+          "../output/2026-06-22/20260622_145313_txt2img_77667_1of4_result.png",
+          "../output/2026-06-22/20260622_145313_txt2img_77667_2of4_result.png",
+          "../output/2026-06-22/20260622_145313_txt2img_77667_3of4_result.png",
+          "../output/2026-06-22/20260622_145313_txt2img_77667_4of4_result.png"
+        ],
+        "elapsed_s": 84.1,
+        "prompt": "漂浮于空旷地面的纯白混凝土方盒, 漫射天光，均质无影，一切消于白, 绝对的静默，时间在此停止, 极简构图，大量留白，单一主体，超写实材质细节，8K画质，无文字，无水印 --ar 16:9 --v 7 --stylize 850 --q 2",
+        "extra_prompt": "",
+        "error": ""
+      }
+    ],
+    "theme": "极简主义"
+  },
+  {
+    "batch_ts": "20260622_144727",
+    "done": 1,
+    "failed": 0,
+    "elapsed_s": 89.0,
+    "report_file": "../output/2026-06-22/report_20260622_144727.html",
+    "tasks": [
+      {
+        "n": 1,
+        "status": "done",
+        "mode": "txt2img",
+        "style_path": "",
+        "char_path": "",
+        "theme_path": "",
+        "theme_path2": "",
+        "output_path": "../output/2026-06-22/20260622_144727_txt2img_36940_1of4_result.png",
+        "output_paths": [
+          "../output/2026-06-22/20260622_144727_txt2img_36940_1of4_result.png",
+          "../output/2026-06-22/20260622_144727_txt2img_36940_2of4_result.png",
+          "../output/2026-06-22/20260622_144727_txt2img_36940_3of4_result.png",
+          "../output/2026-06-22/20260622_144727_txt2img_36940_4of4_result.png"
+        ],
+        "elapsed_s": 89.0,
+        "prompt": "裸露钢桁架构成的大跨度工业空间, 阳光穿越钢桁架，地面形成平行条纹阴影, 工程美学，理性的精密感, 结构细节精准，高技派美学，材质真实，电影级打光，8K画质，无文字，无水印 --ar 16:9 --v 7 --stylize 850 --q 2",
+        "extra_prompt": "",
+        "error": ""
+      }
+    ],
+    "theme": "结构主义"
+  },
+  {
+    "batch_ts": "20260622_143514",
+    "done": 1,
+    "failed": 0,
+    "elapsed_s": 98.7,
+    "report_file": "../output/2026-06-22/report_20260622_143514.html",
+    "tasks": [
+      {
+        "n": 1,
+        "status": "done",
+        "mode": "txt2img",
+        "style_path": "",
+        "char_path": "",
+        "theme_path": "",
+        "theme_path2": "",
+        "output_path": "../output/2026-06-22/20260622_143514_txt2img_12757_1of4_result.png",
+        "output_paths": [
+          "../output/2026-06-22/20260622_143514_txt2img_12757_1of4_result.png",
+          "../output/2026-06-22/20260622_143514_txt2img_12757_2of4_result.png",
+          "../output/2026-06-22/20260622_143514_txt2img_12757_3of4_result.png",
+          "../output/2026-06-22/20260622_143514_txt2img_12757_4of4_result.png"
+        ],
+        "elapsed_s": 98.7,
+        "prompt": "裸露钢桁架构成的大跨度工业空间, 阳光穿越钢桁架，地面形成平行条纹阴影, 工程美学，理性的精密感, 结构细节精准，高技派美学，材质真实，电影级打光，8K画质，无文字，无水印 --ar 16:9 --v 7 --stylize 850 --q 2",
+        "extra_prompt": "",
+        "error": ""
+      }
+    ],
+    "theme": "结构主义"
+  }
+]
