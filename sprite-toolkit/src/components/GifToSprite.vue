@@ -40,29 +40,23 @@
             @click="gridCols = p.cols; gridRows = p.rows"
           >{{ p.label }}</button>
         </div>
-        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-          <div class="form-row" style="margin-bottom:0;">
-            <span class="form-label tip" title="精灵图横向放几帧">列数</span>
-            <input class="form-input" type="number" v-model.number="gridCols" min="1" max="32" style="width:60px;" />
-          </div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;line-height:32px;">
+          <span class="form-label tip" style="min-width:auto;" title="精灵图横向放几帧">列数</span>
+          <input class="form-input" type="number" v-model.number="gridCols" min="1" max="32" style="width:60px;" />
           <span style="color:#94a3b8;">×</span>
-          <div class="form-row" style="margin-bottom:0;">
-            <span class="form-label tip" title="精灵图纵向放几帧">行数</span>
-            <input class="form-input" type="number" v-model.number="gridRows" min="1" max="32" style="width:60px;" />
-          </div>
+          <span class="form-label tip" style="min-width:auto;" title="精灵图纵向放几帧">行数</span>
+          <input class="form-input" type="number" v-model.number="gridRows" min="1" max="32" style="width:60px;" />
           <span style="font-size:12px;color:#94a3b8;">= {{ cellCount }} 格</span>
         </div>
       </template>
 
       <!-- 全帧模式：只设列数，行数自动算 -->
       <template v-else>
-        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-          <div class="form-row" style="margin-bottom:0;">
-            <span class="form-label tip" title="精灵图每行放几帧，行数自动根据总帧数计算">列数</span>
-            <input class="form-input" type="number" v-model.number="gridCols" min="1" max="128" style="width:60px;" />
-          </div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;line-height:32px;">
+          <span class="form-label tip" style="min-width:auto;" title="精灵图每行放几帧，行数自动根据总帧数计算">列数</span>
+          <input class="form-input" type="number" v-model.number="gridCols" min="1" max="128" style="width:60px;" />
           <span style="font-size:12px;color:#94a3b8;">
-            × 行数自动 <template v-if="currentDecoded">= <strong>{{ fullRows }}</strong> 行</template>
+            × 行数自动<template v-if="currentDecoded"> = <strong>{{ fullRows }}</strong> 行</template>
           </span>
         </div>
       </template>

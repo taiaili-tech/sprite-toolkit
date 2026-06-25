@@ -61,10 +61,11 @@ body {
 
 /* 控件 */
 .form-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin: 16px 0; }
-.form-label { font-size: 13px; color: #475569; min-width: 64px; }
+.form-label { font-size: 13px; color: #475569; min-width: 64px; line-height: 32px; }
 .form-input {
-  width: 72px; padding: 6px 10px; border: 1px solid #cbd5e1;
-  border-radius: 6px; font-size: 14px; text-align: center;
+  width: 72px; padding: 0 10px; height: 32px; line-height: 32px;
+  border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;
+  text-align: center; box-sizing: border-box;
 }
 .form-input:focus { outline: 2px solid #4f46e5; border-color: transparent; }
 
