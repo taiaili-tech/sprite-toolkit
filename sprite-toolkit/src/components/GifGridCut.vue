@@ -18,25 +18,40 @@
 
     <div v-if="error" class="error-msg">{{ error }}</div>
 
-    <div v-if="decoded">
-      <div class="form-row" style="margin-top:20px;">
-        <span class="form-label">行 × 列</span>
-        <input class="form-input" type="number" v-model.number="rows" min="1" max="10" />
-        <span style="color:#94a3b8;">×</span>
-        <input class="form-input" type="number" v-model.number="cols" min="1" max="10" />
+    <!-- 快捷预设 + 手动输入（始终显示） -->
+    <div style="margin-top:16px;">
+      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:10px;">
+        <span class="form-label" style="margin:0;white-space:nowrap;">快速预设</span>
+        <button
+          v-for="p in gridPresets"
+          :key="p.label"
+          class="preset-btn"
+          :class="{ active: rows === p.rows && cols === p.cols }"
+          @click="rows = p.rows; cols = p.cols"
+        >{{ p.label }}</button>
       </div>
+      <div class="form-row" style="margin-bottom:0;">
+        <span class="form-label">行 × 列</span>
+        <input class="form-input" type="number" v-model.number="rows" min="1" max="10" style="width:60px;" />
+        <span style="color:#94a3b8;margin:0 4px;">×</span>
+        <input class="form-input" type="number" v-model.number="cols" min="1" max="10" style="width:60px;" />
+      </div>
+    </div>
+
+    <div v-if="decoded">
+
       <div class="info-msg">
         输入帧数：{{ decoded.frames.length }} &nbsp;|&nbsp;
         格子尺寸：{{ cellW }}×{{ cellH }} px &nbsp;|&nbsp;
         输出 GIF 数：{{ rows * cols }}
       </div>
 
-      <div class="preview-wrap" style="margin-top:20px;">
+      <div class="preview-wrap" style="margin-top:16px;">
         <div class="preview-label">第一帧 + 网格预览</div>
         <canvas ref="previewCanvas"></canvas>
       </div>
 
-      <div style="margin-top:20px;">
+      <div style="margin-top:16px;">
         <button class="btn-primary" :disabled="processing" @click="doProcess">
           {{ processing ? `处理中… (${progress}/${rows*cols})` : `裁切并下载 ZIP（${rows*cols} 个 GIF）` }}
         </button>
@@ -62,6 +77,16 @@ const decoded = ref(null)
 const rows = ref(3)
 const cols = ref(3)
 const progress = ref(0)
+
+const gridPresets = [
+  { label: '2×2', rows: 2, cols: 2 },
+  { label: '3×3', rows: 3, cols: 3 },
+  { label: '4×4', rows: 4, cols: 4 },
+  { label: '2×3', rows: 2, cols: 3 },
+  { label: '3×2', rows: 3, cols: 2 },
+  { label: '1×2', rows: 1, cols: 2 },
+  { label: '2×1', rows: 2, cols: 1 },
+]
 
 const cellW = computed(() => decoded.value ? Math.floor(decoded.value.width / cols.value) : 0)
 const cellH = computed(() => decoded.value ? Math.floor(decoded.value.height / rows.value) : 0)
@@ -149,3 +174,22 @@ async function doProcess() {
   }
 }
 </script>
+
+<style scoped>
+.preset-btn {
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.preset-btn:hover { border-color: #6366f1; color: #4338ca; }
+.preset-btn.active {
+  border-color: #6366f1;
+  background: #eef2ff;
+  color: #4338ca;
+  font-weight: 600;
+}
+</style>
