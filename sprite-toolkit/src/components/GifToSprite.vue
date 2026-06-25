@@ -16,41 +16,56 @@
         class="mode-btn"
         :class="{ active: mode === 'full' }"
         @click="mode = 'full'"
-        title="保留 GIF 的全部帧，按顺序铺入精灵图&#10;帧数多时自动生成多张，适合还原动画或游戏素材"
-      >全帧导出 <span class="mode-tag">多张</span></button>
+        title="保留 GIF 的全部帧，按顺序铺入 1 张精灵图&#10;设定列数，行数自动计算，适合还原动画或游戏素材"
+      >全帧导出 <span class="mode-tag">1张</span></button>
       <span v-if="currentDecoded && mode === 'sample'" style="font-size:12px;color:#6366f1;font-weight:600;">
         → {{ totalFrames }} 帧 ÷ {{ cellCount }} 格 ≈ 每 <strong>{{ sampleInterval }}</strong> 帧取 1 帧，输出 1 张
       </span>
       <span v-if="currentDecoded && mode === 'full'" style="font-size:12px;color:#6366f1;font-weight:600;">
-        → {{ totalFrames }} 帧 ÷ {{ cellCount }} = 输出 <strong>{{ sheetCount }}</strong> 张
-        <template v-if="lastSheetFrames < cellCount">（最后一张 {{ lastSheetFrames }} 帧）</template>
+        → {{ totalFrames }} 帧，{{ gridCols }} 列 × <strong>{{ fullRows }}</strong> 行，输出 1 张
       </span>
     </div>
 
     <!-- 布局设置（始终显示） -->
     <div style="margin-bottom:16px;">
-      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:8px;">
-        <span class="form-label" style="margin:0;">输出布局预设</span>
-        <button
-          v-for="p in layoutPresets"
-          :key="p.label"
-          class="preset-btn"
-          :class="{ active: gridCols === p.cols && gridRows === p.rows }"
-          @click="gridCols = p.cols; gridRows = p.rows"
-        >{{ p.label }}</button>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-        <div class="form-row" style="margin-bottom:0;">
-          <span class="form-label tip" title="精灵图横向放几帧">列数</span>
-          <input class="form-input" type="number" v-model.number="gridCols" min="1" max="32" style="width:60px;" />
+      <!-- 抽帧模式：预设按钮（固定行列） -->
+      <template v-if="mode === 'sample'">
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:8px;">
+          <span class="form-label" style="margin:0;">输出布局预设</span>
+          <button
+            v-for="p in layoutPresets"
+            :key="p.label"
+            class="preset-btn"
+            :class="{ active: gridCols === p.cols && gridRows === p.rows }"
+            @click="gridCols = p.cols; gridRows = p.rows"
+          >{{ p.label }}</button>
         </div>
-        <span style="color:#94a3b8;">×</span>
-        <div class="form-row" style="margin-bottom:0;">
-          <span class="form-label tip" title="精灵图纵向放几帧">行数</span>
-          <input class="form-input" type="number" v-model.number="gridRows" min="1" max="32" style="width:60px;" />
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <div class="form-row" style="margin-bottom:0;">
+            <span class="form-label tip" title="精灵图横向放几帧">列数</span>
+            <input class="form-input" type="number" v-model.number="gridCols" min="1" max="32" style="width:60px;" />
+          </div>
+          <span style="color:#94a3b8;">×</span>
+          <div class="form-row" style="margin-bottom:0;">
+            <span class="form-label tip" title="精灵图纵向放几帧">行数</span>
+            <input class="form-input" type="number" v-model.number="gridRows" min="1" max="32" style="width:60px;" />
+          </div>
+          <span style="font-size:12px;color:#94a3b8;">= {{ cellCount }} 格</span>
         </div>
-        <span style="font-size:12px;color:#94a3b8;">= {{ cellCount }} 格/张</span>
-      </div>
+      </template>
+
+      <!-- 全帧模式：只设列数，行数自动算 -->
+      <template v-else>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <div class="form-row" style="margin-bottom:0;">
+            <span class="form-label tip" title="精灵图每行放几帧，行数自动根据总帧数计算">列数</span>
+            <input class="form-input" type="number" v-model.number="gridCols" min="1" max="128" style="width:60px;" />
+          </div>
+          <span style="font-size:12px;color:#94a3b8;">
+            × 行数自动 <template v-if="currentDecoded">= <strong>{{ fullRows }}</strong> 行</template>
+          </span>
+        </div>
+      </template>
     </div>
 
     <!-- 上传区 -->
@@ -104,16 +119,12 @@
           <canvas ref="gifPreview"></canvas>
         </div>
         <div class="preview-wrap" style="flex:2;min-width:280px;">
-          <div class="preview-label" style="display:flex;align-items:center;gap:8px;">
-            <span>精灵图预览（{{ gridCols }}×{{ gridRows }}）</span>
-            <template v-if="mode === 'full' && sheetCount > 1">
-              <div style="display:flex;align-items:center;gap:4px;margin-left:auto;">
-                <button class="page-btn" :disabled="previewSheet <= 0" @click="previewSheet--">‹</button>
-                <span style="font-size:12px;color:#64748b;white-space:nowrap;">
-                  第 {{ previewSheet + 1 }} / {{ sheetCount }} 张
-                </span>
-                <button class="page-btn" :disabled="previewSheet >= sheetCount - 1" @click="previewSheet++">›</button>
-              </div>
+          <div class="preview-label">
+            <template v-if="mode === 'sample'">
+              精灵图预览（{{ gridCols }}×{{ gridRows }}，共 {{ cellCount }} 帧）
+            </template>
+            <template v-else>
+              精灵图预览（{{ gridCols }} 列 × <strong>{{ currentDecoded ? fullRows : '?' }}</strong> 行，共 {{ totalFrames }} 帧）
             </template>
           </div>
           <canvas ref="spritePreview"></canvas>
@@ -126,9 +137,7 @@
           {{ processing ? '生成中…'
             : fileList.length > 1
               ? `批量下载 (ZIP)`
-              : mode === 'full' && sheetCount > 1
-                ? `下载 ${sheetCount} 张精灵图 (ZIP)`
-                : '下载精灵图 + metadata.json (ZIP)' }}
+                  : '下载精灵图 + metadata.json (ZIP)' }}
         </button>
         <span v-if="processing" style="font-size:13px;color:#64748b;">{{ progressText }}</span>
       </div>
@@ -181,15 +190,15 @@ const sampleInterval = computed(() => {
   return Math.max(1, +(totalFrames.value / cellCount.value).toFixed(1))
 })
 
-// 全帧模式：多少张精灵图
-const sheetCount = computed(() => {
+// 全帧模式：行数自动计算（总帧 ÷ 列数，向上取整）
+const fullRows = computed(() => {
   if (!totalFrames.value) return 1
-  return Math.ceil(totalFrames.value / cellCount.value)
+  return Math.ceil(totalFrames.value / gridCols.value)
 })
-const lastSheetFrames = computed(() => {
-  const rem = totalFrames.value % cellCount.value
-  return rem === 0 ? cellCount.value : rem
-})
+
+// 抽帧模式多张兼容（已不使用，保留以防引用）
+const sheetCount = computed(() => 1)
+const lastSheetFrames = computed(() => cellCount.value)
 
 // 采样后的帧索引列表
 function getSampledIndices(total, count) {
@@ -237,11 +246,9 @@ function removeFile(idx) {
 // ── preview ───────────────────────────────────────────────────────────────────
 
 watch([currentIdx, gridCols, gridRows, mode], () => {
-  previewSheet.value = 0
   if (animFrameId) { cancelAnimationFrame(animFrameId); animFrameId = null }
   nextTick(() => { startGifPreview(); drawSpritePreview() })
 })
-watch(previewSheet, () => nextTick(() => drawSpritePreview()))
 
 function startGifPreview() {
   if (animFrameId) { cancelAnimationFrame(animFrameId); animFrameId = null }
@@ -269,7 +276,7 @@ function drawSpritePreview() {
   if (!canvas || !decoded) return
   const { frames, width, height } = decoded
   const c = gridCols.value
-  const r = gridRows.value
+  const r = mode.value === 'full' ? fullRows.value : gridRows.value
   canvas.width = width * c
   canvas.height = height * r
   const ctx = canvas.getContext('2d')
@@ -279,9 +286,7 @@ function drawSpritePreview() {
   if (mode.value === 'sample') {
     indices = getSampledIndices(frames.length, cellCount.value)
   } else {
-    const start = previewSheet.value * cellCount.value
-    const end = Math.min(start + cellCount.value, frames.length)
-    indices = Array.from({ length: end - start }, (_, i) => start + i)
+    indices = Array.from({ length: frames.length }, (_, i) => i)
   }
 
   indices.forEach((fi, i) => {
@@ -331,35 +336,26 @@ async function buildSprite(decoded, baseName) {
     entries.push({ name: `${baseName}.png`, blob: pngBlob })
     entries.push({ name: `${baseName}_metadata.json`, blob: new Blob([JSON.stringify(meta, null, 2)], { type: 'application/json' }) })
   } else {
-    // 全帧模式：按 cellCount 分批生成多张精灵图
+    // 全帧模式：所有帧铺入1张，行数自动计算
     const total = frames.length
-    const count = Math.ceil(total / cellCount.value)
-    const allDelays = []
-    for (let s = 0; s < count; s++) {
-      const start = s * cellCount.value
-      const end = Math.min(start + cellCount.value, total)
-      const canvas = document.createElement('canvas')
-      canvas.width = width * c; canvas.height = height * r
-      const ctx = canvas.getContext('2d')
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      for (let i = start; i < end; i++) {
-        const slot = i - start
-        ctx.putImageData(frames[i].imageData, (slot % c) * width, Math.floor(slot / c) * height)
-        allDelays.push(frames[i].delay)
-      }
-      const pngBlob = await new Promise(res => canvas.toBlob(res, 'image/png'))
-      const suffix = count > 1 ? `_${String(s + 1).padStart(2, '0')}` : ''
-      entries.push({ name: `${baseName}${suffix}.png`, blob: pngBlob })
+    const rows = Math.ceil(total / c)
+    const canvas = document.createElement('canvas')
+    canvas.width = width * c; canvas.height = height * rows
+    const ctx = canvas.getContext('2d')
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    for (let i = 0; i < total; i++) {
+      ctx.putImageData(frames[i].imageData, (i % c) * width, Math.floor(i / c) * height)
     }
+    const pngBlob = await new Promise(res => canvas.toBlob(res, 'image/png'))
     const meta = {
       mode: 'full',
       frameCount: total,
       frameWidth: width, frameHeight: height,
-      cols: c, rows: r,
-      sheetCount: count,
-      delays: allDelays,
+      cols: c, rows,
+      delays: frames.map(f => f.delay),
       loopCount: loopCount ?? 0,
     }
+    entries.push({ name: `${baseName}.png`, blob: pngBlob })
     entries.push({ name: `${baseName}_metadata.json`, blob: new Blob([JSON.stringify(meta, null, 2)], { type: 'application/json' }) })
   }
 
