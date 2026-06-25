@@ -175,21 +175,3 @@ async function doProcess() {
 }
 </script>
 
-<style scoped>
-.preset-btn {
-  padding: 4px 10px;
-  border-radius: 6px;
-  border: 1px solid #e2e8f0;
-  background: #f8fafc;
-  font-size: 12px;
-  cursor: pointer;
-  transition: all .15s;
-}
-.preset-btn:hover { border-color: #6366f1; color: #4338ca; }
-.preset-btn.active {
-  border-color: #6366f1;
-  background: #eef2ff;
-  color: #4338ca;
-  font-weight: 600;
-}
-</style>

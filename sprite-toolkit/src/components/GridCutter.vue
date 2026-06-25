@@ -18,16 +18,23 @@
     </div>
 
     <!-- 配置 -->
-    <div class="form-row" style="margin-top:20px;">
-      <span class="form-label">快速预设</span>
-      <button class="preset-btn" :class="{active: rows===2&&cols===2}" @click="setPreset(2,2)">2×2</button>
-      <button class="preset-btn" :class="{active: rows===3&&cols===3}" @click="setPreset(3,3)">3×3</button>
-    </div>
-    <div class="form-row">
-      <span class="form-label">行 × 列</span>
-      <input class="form-input" type="number" v-model.number="rows" min="1" max="20" />
-      <span style="color:#94a3b8;">×</span>
-      <input class="form-input" type="number" v-model.number="cols" min="1" max="20" />
+    <div style="margin-top:20px;">
+      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:10px;">
+        <span class="form-label" style="margin:0;white-space:nowrap;">快速预设</span>
+        <button
+          v-for="p in gridPresets"
+          :key="p.label"
+          class="preset-btn"
+          :class="{ active: rows === p.rows && cols === p.cols }"
+          @click="setPreset(p.rows, p.cols)"
+        >{{ p.label }}</button>
+      </div>
+      <div class="form-row" style="margin-bottom:0;">
+        <span class="form-label">行 × 列</span>
+        <input class="form-input" type="number" v-model.number="rows" min="1" max="20" style="width:60px;" />
+        <span style="color:#94a3b8;margin:0 4px;">×</span>
+        <input class="form-input" type="number" v-model.number="cols" min="1" max="20" style="width:60px;" />
+      </div>
     </div>
 
     <div v-if="error" class="error-msg">{{ error }}</div>
@@ -64,6 +71,16 @@ const imgSrc = ref('')
 
 const cellW = computed(() => imgEl.value ? Math.floor(imgEl.value.naturalWidth / cols.value) : 0)
 const cellH = computed(() => imgEl.value ? Math.floor(imgEl.value.naturalHeight / rows.value) : 0)
+
+const gridPresets = [
+  { label: '2×2', rows: 2, cols: 2 },
+  { label: '3×3', rows: 3, cols: 3 },
+  { label: '4×4', rows: 4, cols: 4 },
+  { label: '2×3', rows: 2, cols: 3 },
+  { label: '3×2', rows: 3, cols: 2 },
+  { label: '1×2', rows: 1, cols: 2 },
+  { label: '2×1', rows: 2, cols: 1 },
+]
 
 function setPreset(r, c) { rows.value = r; cols.value = c }
 
