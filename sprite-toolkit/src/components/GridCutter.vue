@@ -53,13 +53,15 @@
         </div>
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;line-height:32px;">
           <span class="form-label" style="min-width:auto;">行 × 列</span>
-          <input class="form-input" type="number" v-model.number="fileList[idx].pendingRows" min="1" max="20" style="width:60px;" @click.stop />
+          <input class="form-input" type="number" v-model.number="fileList[idx].pendingRows" min="1" max="20" style="width:60px;" @click.stop @input="fileList[idx].confirmed = false" />
           <span style="color:#94a3b8;">×</span>
-          <input class="form-input" type="number" v-model.number="fileList[idx].pendingCols" min="1" max="20" style="width:60px;" @click.stop />
-          <button class="confirm-btn" @click.stop="confirmSettings(idx)">✓ 确认</button>
+          <input class="form-input" type="number" v-model.number="fileList[idx].pendingCols" min="1" max="20" style="width:60px;" @click.stop @input="fileList[idx].confirmed = false" />
+          <button
+            :class="['confirm-btn', { confirmed: fileList[idx].confirmed }]"
+            @click.stop="confirmSettings(idx)"
+          >{{ fileList[idx].confirmed ? '✓ 已确认' : '确认' }}</button>
           <span style="font-size:12px;color:#94a3b8;">
-            已应用：{{ fileList[idx].rows }}×{{ fileList[idx].cols }}
-            &nbsp;每格 {{ Math.floor(item.imgEl.naturalWidth / fileList[idx].cols) }}×{{ Math.floor(item.imgEl.naturalHeight / fileList[idx].rows) }} px
+            每格 {{ Math.floor(item.imgEl.naturalWidth / fileList[idx].cols) }}×{{ Math.floor(item.imgEl.naturalHeight / fileList[idx].rows) }} px
           </span>
         </div>
 
@@ -83,9 +85,9 @@
         v-if="fileList.length > 1"
         class="btn-secondary"
         @click="applyToAll"
-        title="将当前选中图片的已确认行列应用到所有图片"
+        :title="`将「${fileList[currentIdx]?.name ?? ''}」的设置 (${fileList[currentIdx]?.rows}×${fileList[currentIdx]?.cols}) 应用到全部图片`"
       >
-        同步当前设置到全部
+        同步「{{ truncName(fileList[currentIdx]?.name) }}」设置到全部
       </button>
     </div>
   </div>
@@ -118,12 +120,20 @@ const gridPresets = [
 function setPending(idx, r, c) {
   fileList.value[idx].pendingRows = r
   fileList.value[idx].pendingCols = c
+  fileList.value[idx].confirmed = false
 }
 
 function confirmSettings(idx) {
   fileList.value[idx].rows = fileList.value[idx].pendingRows
   fileList.value[idx].cols = fileList.value[idx].pendingCols
+  fileList.value[idx].confirmed = true
   nextTick(() => drawPreview(idx))
+}
+
+function truncName(name = '') {
+  if (!name) return ''
+  const base = name.replace(/\.[^.]+$/, '')
+  return base.length > 8 ? base.slice(0, 8) + '…' : base
 }
 
 async function loadFiles(files) {
@@ -132,7 +142,7 @@ async function loadFiles(files) {
   for (const f of arr) {
     try {
       const imgEl = await fileToImage(f)
-      fileList.value.push({ name: f.name, imgEl, rows: 3, cols: 3, pendingRows: 3, pendingCols: 3 })
+      fileList.value.push({ name: f.name, imgEl, rows: 3, cols: 3, pendingRows: 3, pendingCols: 3, confirmed: false })
     } catch (e) {
       error.value = `${f.name} 加载失败：${e.message}`
     }
@@ -250,7 +260,11 @@ async function doProcess() {
   padding: 4px 12px; border-radius: 6px;
   border: 1px solid #6366f1; background: #eef2ff;
   color: #4338ca; font-size: 13px; font-weight: 600;
-  cursor: pointer; transition: all .15s;
+  cursor: pointer; transition: all .2s;
 }
 .confirm-btn:hover { background: #6366f1; color: #fff; }
+.confirm-btn.confirmed {
+  border-color: #16a34a; background: #dcfce7; color: #15803d;
+}
+.confirm-btn.confirmed:hover { background: #16a34a; color: #fff; }
 </style>
